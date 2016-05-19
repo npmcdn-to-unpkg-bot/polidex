@@ -1,0 +1,365 @@
+* {
+  box-sizing: border-box;
+}
+
+.politicians {
+}
+
+/* Banner */
+.banner {
+    // background-color: #304A5D;
+    // background-image: url('../../img/content/parliamenthouse - Copy.jpg');
+    background-position: center;
+    background-size: cover;
+}
+
+.banner .overlay {
+    padding: 30px 30px 0 30px;
+    // background-color: rgba(11, 60, 82, 0.9);
+}
+
+.banner .field.search-field {
+    position: relative;
+}
+
+.banner .field.search-field:before {
+    content: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDIwIDIwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4uc3Qwe2ZpbGw6IzA0OTNEODt9PC9zdHlsZT48cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTkuNiwxNy41TDE2LjEsMTRjMS0xLjUsMS42LTMuMiwxLjYtNS4xYzAtNC45LTQtOC45LTguOS04LjlTMCw0LDAsOC45czQsOC45LDguOSw4LjljMS45LDAsMy43LTAuNiw1LjItMS43bDMuNSwzLjVjMC4zLDAuMywwLjcsMC40LDEsMC40YzAuNCwwLDAuNy0wLjEsMS0wLjRDMjAuMSwxOSwyMC4xLDE4LjEsMTkuNiwxNy41eiBNOC45LDE0LjhjLTMuMywwLTUuOS0yLjctNS45LTUuOXMyLjctNS45LDUuOS01LjlzNS45LDIuNyw1LjksNS45YzAsMS4xLTAuMywyLjEtMC44LDNjLTAuNSwwLjgtMS4yLDEuNi0yLjEsMi4xQzExLDE0LjUsMTAsMTQuOCw4LjksMTQuOHoiLz48L3N2Zz4=);
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 20px;
+    margin-top: -10px;
+}
+
+.banner input.search {
+    border: none;
+    background: #FFFFFF;
+    color: #304A5D;
+    box-shadow: none;
+    @include font-size(18);
+    @include padding-all(14,18,14,58);
+    border-radius: 24px 0 0 24px;
+    width: 84%;
+
+    &::-webkit-input-placeholder {
+        color: #304A5D;
+    }
+
+    &:-moz-placeholder { /* Firefox 18- */
+        color: #304A5D;
+    }
+
+    &::-moz-placeholder {  /* Firefox 19+ */
+        color: #304A5D;
+    }
+
+    &:-ms-input-placeholder {
+        color: #304A5D;
+    }
+}
+
+.banner button.go {
+    background: #0493D8;
+    border: none;
+    color: #FFFFFF;
+    box-shadow: none;
+    @include font-size(18);
+    @include padding-all(14,18,14,18);
+    border-radius: 0 24px 24px 0;
+    width: 16%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.banner button.go:focus,
+.banner input.search:focus {
+    outline: none;
+    box-shadow: 0px 0px 5px #0493D8;
+}
+
+/* */
+.container {
+    font-size: 0px;
+}
+
+.mix {
+    text-align: center;
+    width: 25%;
+    background-color: #FFFFFF;
+    font-size: 16px;
+    float: left;
+}
+
+/* Sort By */
+.sort-by {
+    float: left;
+}
+
+.sort-by .label {
+    color: #304A5D;
+    border: none;
+    display: inline-block;
+
+    @include font-size(18);
+    @include padding(6);
+    @include margin-all(0,0,0,0);
+    cursor: pointer;
+}
+
+.sort-by .select-party {
+    display: inline-block;
+    position: relative;
+}
+
+.sort-by .selected-party {
+    color: #304A5D;
+    border: none;
+
+    @include font-size(18);
+    @include padding-all(6,20,6,6);
+    @include margin-all(0,0,0,0);
+    cursor: pointer;
+    position: relative;
+    width: 260px;
+    font-weight: bold;
+    border: none;
+    background: none;
+    text-align: left;
+}
+
+.sort-by .selected-party:focus {
+    background-color: rgba(255,255,255,0.25);
+}
+
+.sort-by .selected-party:before {
+    content: '';
+    border-right: 2px solid #304A5D;
+    border-bottom: 2px solid #304A5D;
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    transform: rotate(45deg);
+    height: 6px;
+    width: 6px;
+    margin-top: -6px;
+}
+
+.sort-by .selected-party:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(#304A5D,0.25);
+}
+
+.sort-by .options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 260px;
+    z-index: 2;
+    margin-top: 1px;
+}
+
+.sort-by .options button {
+    @include font-size(18);
+    @include padding(6);
+    text-align: left;
+    width: 100%;
+    background: rgba(16, 41, 59, 0.8);
+    color: #304A5D;
+    border: none;
+    border-bottom: 1px solid rgba(#304A5D,0.25);
+}
+
+/* Filter */
+.filter {
+    float: right;
+}
+
+.filter li.btn {
+    @include padding-all(6,6,6,18);
+    position: relative;
+    @include margin-all(0,0,0,15);
+}
+
+.filter li.btn:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -6px;
+    width: 12px;
+    height: 12px;
+    background: #FFF;
+    border-radius: 6px;
+}
+
+.filter li.btn.selected:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 3px;
+    margin-top: -3px;
+    width: 6px;
+    height: 6px;
+    background: #0493D8;
+    border-radius: 3px;
+}
+
+.filter li.btn.selected:before {
+    box-shadow: 0px 0px 5px #0493D8;
+}
+
+/* Both Filters */
+.filters {
+    @include margin-all(20,0,0,0);
+}
+.filters li {
+    color: 304A5D;
+    border: none;
+    display: inline-block;
+
+    @include font-size(18);
+    @include padding(6);
+    @include margin-all(0,0,0,0);
+    cursor: pointer;
+
+    &.active {
+        background: blue;
+    }
+}
+
+.houseofreps {
+  color: red;
+}
+
+.senate {
+  color: orange;
+}
+
+/* Politicians Listed */
+.listed-politicians {
+    padding: 30px 1.5% 0 1.5%;
+
+    @supports (display: flex) {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+}
+
+.listed-politicians li {
+    width: 12.2867%;
+    margin: 0 1% 2% 1%;
+    cursor: pointer;
+
+    @media screen and (max-width: 86em) {
+      width: 14.6666%;
+    }
+
+    @media screen and (max-width: 64.063em) {
+      width: 18%;
+    }
+
+    @media screen and (max-width: 42em) {
+      width: 23%;
+    }
+
+    @media screen and (max-width: 26em) {
+      width: 31.3333%;
+    }
+
+    @media screen and (max-width: 26em) {
+      width: 48%;
+    }
+
+    @media screen and (max-width: 18em) {
+      width: 98%;
+    }
+}
+
+.listed-politicians li:hover .pol-image {
+  opacity: 0.75;
+}
+
+.listed-politicians li:hover .description {
+  color: #0493D8;
+}
+
+.listed-politicians .pol-image {
+  background-position: center;
+  background-size: cover;
+  padding-top: 100%;
+  position: relative;
+  border-radius: 5px 5px 0 0;
+}
+
+.listed-politicians .pol-image .overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+}
+
+$lib-colour: #0F71EF;
+$lab-colour: #DC5C5C;
+$greens-colour: #89C106;
+$nats-colour: #70CAA5;
+$indep-colour: #9664BB;
+$libdem-colour: #000000;
+$palmer-colour: #000000;
+$other-colour: #000000;
+
+.listed-politicians .lib .description {
+    border-top: 2px solid $lib-colour;
+}
+
+.listed-politicians .lab .description {
+    border-top: 2px solid $lab-colour;
+}
+
+.listed-politicians .greens .description {
+    border-top: 2px solid $greens-colour;
+}
+
+.listed-politicians .libdem .description {
+    border-top: 2px solid $libdem-colour;
+}
+
+.listed-politicians .indep .description {
+    border-top: 2px solid $indep-colour;
+}
+
+.listed-politicians .palmer .description {
+    border-top: 2px solid $palmer-colour;
+}
+
+.listed-politicians .nats .description {
+    border-top: 2px solid $nats-colour;
+}
+
+.listed-politicians .other .description {
+    border-top: 2px solid $other-colour;
+}
+
+.listed-politicians .description {
+  border-top: 2px solid #DE4545;
+  background: #FFFFFF;
+  padding: 10px;
+  border-radius: 0px 0px 5px 5px;
+  text-align: center;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.listed-politicians .description .party {
+  margin: 4px 0px 0px 0px;
+  font-size: 10px;
+  color: #555555;
+}

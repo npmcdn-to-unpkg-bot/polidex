@@ -1,0 +1,59 @@
+.politician-popup {
+  min-height: 280px;
+  padding-left: 220px;
+  position: relative;
+}
+
+.politician-popup .pop-image {
+    width: 200px;
+    height: 280px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Details */
+.pop-content {
+    width: 420px;
+}
+
+.pop-content .name {
+   @include font-size(24);
+   @include line-height(28);
+   font-weight: bold;
+   color: #10293b;
+}
+
+.pop-content .party {
+   @include font-size(14);
+   @include line-height(18);
+   font-weight: bold;
+   color: #10293b;
+   text-transform: uppercase;
+}
+
+.pop-content .map-area {
+
+}
+
+.pop-content .vote-history {
+
+}
+
+.pop-content .vote-history .issue {
+  
+}
+
+.swing-title {
+    font-weight: 500;
+    font-size: 20px;
+    font-size: 1.25rem;
+    line-height: 24px;
+    line-height: 1.5rem;
+    margin: 0px 0px 10px 0px;
+    margin: 0rem 0rem 0.625rem 0rem;
+    color: #35373C;
+}

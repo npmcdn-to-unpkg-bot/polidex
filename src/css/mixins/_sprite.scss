@@ -1,0 +1,16 @@
+
+/* Main Sprite */
+@mixin sprite {
+	background-image: url(../images/sprite.png);
+	background-image: url(../images/sprite.svg), none;
+	background-repeat: no-repeat;
+    background-size: 480px 320px;
+}
+
+/* Mixins */
+@mixin ia-sprite {
+	background-image: url(../images/sprite.png);
+	background-image: url(../images/sprite.svg), none;
+    background-repeat: no-repeat;
+	background-size: 130px 80px;
+}

@@ -1,0 +1,53 @@
+header {
+    height: 50px;
+    background: #0493D8;
+    line-height: 50px;
+    color: #FFFFFF;
+}
+
+header .logo {
+    float: left;
+    font-size: 20px;
+    display: block;
+    color: #FFFFFF;
+    padding: 0 1em;
+    font-weight: normal;
+    line-height: 50px;
+    height: 50px;
+}
+
+header .logo svg {
+    display: block;
+    height: 32px;
+    width: 108px;
+    margin: 9px 0px;
+}
+
+header .open-menu {
+    cursor: pointer;
+    float: left;
+    height: 50px;
+    width: 50px;
+    position: relative;
+    background: rgba(255,255,255,0.1);
+    line-height: 50px;
+    border: none;
+    padding: 16px;
+}
+
+header .open-menu span {
+    height: 2px;
+    width: 100%;
+    display: block;
+    background-color: #FFFFFF;
+    margin: 0 0 6px 0;
+}
+
+header .open-menu:focus {
+    outline: none;
+    background: #e8ebed;
+}
+
+header .open-menu:focus span {
+    background-color: #0493D8;
+}

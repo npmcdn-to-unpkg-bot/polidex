@@ -1,0 +1,54 @@
+.ReactModal__Content {
+    position: relative;
+}
+
+.ReactModal__Content button.close {
+    position: absolute;
+    top: -16px;
+    right: -16px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: #304A5D;
+    border-radius: 16px;
+    transform: rotate(45deg);
+    white-space: nowrap;
+    text-indent: 150%;
+    overflow: hidden;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+}
+
+.ReactModal__Content button.close:hover {
+    background: #0493D8;
+}
+
+.ReactModal__Content button.close:focus {
+    background: #0493D8;
+    box-shadow: 0px 0px 5px #0493D8;
+}
+
+.ReactModal__Content button.close:before {
+    content: '';
+    height: 2px;
+    width: 16px;
+    background: #FFFFFF;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -1px;
+    margin-left: -8px;
+}
+
+.ReactModal__Content button.close:after {
+    content: '';
+    height: 16px;
+    width: 2px;
+    background: #FFFFFF;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -8px;
+    margin-left: -1px;
+}
