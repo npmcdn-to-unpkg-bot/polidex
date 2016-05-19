@@ -8,9 +8,9 @@ Sort through Australia's federal politicians.
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
 ## History
-V1.0.0 - A baby is born
+V0.0.1 - Working on functionality and design
 ## Credits
-Built by Brett Snaidero, with big help from Vanessa Dwyer and Marc Bowditch.
+Built by Vanessa Dwyer, Brett Snaidero and Marc Bowditch.
 ## License
 MIT License
 
