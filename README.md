@@ -1,6 +1,6 @@
 
-# Politico
----
+# Polidex
+
 Sort through Australia's federal politicians.
 
 ## History
