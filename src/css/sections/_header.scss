@@ -1,8 +1,13 @@
 header {
     height: 50px;
-    background: #0493D8;
+    background: rgba(#0493D8,0.92);
     line-height: 50px;
     color: #FFFFFF;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 3;
 }
 
 header .logo {

@@ -25,11 +25,7 @@
 }
 
 .page-main {
-	float: left;
 	width: 100%;
-	height: calc(100vh - 50px);
-	overflow-y: scroll;
-	overflow-x: hidden;
 	background: #e8ebed;
 }
 
@@ -37,7 +33,6 @@
 	.page-main {
 		position: static;
 		width: 100%;
-		height: auto;
 		overflow: auto;
 	}
 }
@@ -51,15 +46,15 @@
 	}
 }
 
-.page-main::-webkit-scrollbar {
+body::-webkit-scrollbar {
     width: 10px;
 }
 
-.page-main::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track {
 	background: #C5CED4;
 }
 
-.page-main::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb {
 	background-color: #43637B;
 	border: none;
 }
@@ -100,7 +95,8 @@ button {
 }
 
 body {
-	background: #FFFFFF;
+	background: #e8ebed;
+	overflow-x: hidden;
 }
 
 a {

@@ -184,10 +184,13 @@ class PoliticianPokedex extends React.Component {
                     <div id="PoliticianContainer">
                         <div className="banner">
                             <div className="overlay clearfix">
+                                <div className="title">
+                                    Search, sort and find out more about Australia&#39;s federal politicians.
+                                </div>
                                 <div className="field search-field">
                                     <input
                                         className="search"
-                                        placeholder="Search politicians names..."
+                                        placeholder="Search by name..."
                                         onChange={ this.handleSearch.bind(this) }
                                         ref={(ref) => this.searchField = ref}
                                     />
