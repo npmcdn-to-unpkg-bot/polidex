@@ -154,9 +154,13 @@
 }
 
 .listed-politicians li {
-    width: 12.2867%;
-    margin: 0 1% 2% 1%;
+    width: 10.5%;
+    margin: 0 1% 30px 1%;
     cursor: pointer;
+
+    @media screen and (max-width: 100em) {
+      width: 12.2867%;
+    }
 
     @media screen and (max-width: 86em) {
       width: 14.6666%;
