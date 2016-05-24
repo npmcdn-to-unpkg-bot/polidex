@@ -1,6 +1,6 @@
 // Import React and HelloText class
 import React from 'react';
-import {GoogleMapLoader, GoogleMap, Marker} from "../../../node_modules/react-google-maps/lib/index";
+// import {GoogleMapLoader, GoogleMap, Marker} from "../../../bower_components/react-google-maps/lib/index";
 
 // Create class called WelcomeScreen that extends the base React Component class
 class ElectorateMap extends React.Component {

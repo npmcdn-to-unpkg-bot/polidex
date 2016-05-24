@@ -26,13 +26,12 @@
 
 .page-main {
 	float: left;
-	width: 85%;
-	height: 800px;
+	width: 100%;
 	height: calc(100vh - 50px);
 	overflow-y: scroll;
 	overflow-x: hidden;
 	background: #e8ebed;
-} 
+}
 
 @media screen and (max-height: 32em) {
 	.page-main {
@@ -97,7 +96,7 @@ input,
 select,
 textarea,
 button {
-	font-family: 'Arial', sans-serif;
+	font-family: 'National', sans-serif;
 }
 
 body {

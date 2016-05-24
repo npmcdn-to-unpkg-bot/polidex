@@ -6,14 +6,25 @@ header {
 }
 
 header .logo {
-    float: left;
-    font-size: 20px;
+    font-size: 28px;
     display: block;
+    float: left;
     color: #FFFFFF;
     padding: 0 1em;
     font-weight: normal;
-    line-height: 50px;
+    line-height: 30px;
     height: 50px;
+    font-family: 'Lyon Display';
+    padding: 13px 10px 7px 10px;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 80%;
+}
+
+header .logo span {
+  color: #10293b;
 }
 
 header .logo svg {
@@ -25,7 +36,7 @@ header .logo svg {
 
 header .open-menu {
     cursor: pointer;
-    float: left;
+    float: right;
     height: 50px;
     width: 50px;
     position: relative;

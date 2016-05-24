@@ -1,7 +1,6 @@
-// Import React
 import React from 'react';
 import PoliticianPopup from './PoliticianPopup';
-import Modal from '../../node_modules/react-modal/lib/index';
+import Modal from '../../bower_components/react-modal/lib/index';
 
 // Modal Style
 const customStyles = {
@@ -11,7 +10,8 @@ const customStyles = {
         left              : 0,
         right             : 0,
         bottom            : 0,
-        backgroundColor   : 'rgba(16, 41, 59, 0.5)'
+        backgroundColor   : 'rgba(16, 41, 59, 0.5)',
+        zIndex            : '3'
     },
     content : {
         top                   : '50%',
@@ -21,11 +21,13 @@ const customStyles = {
         marginRight           : '-50%',
         transform             : 'translate(-50%, -50%)',
         border                : 'none',
-        overflow              : 'visible'
+        overflow              : 'visible',
+        padding               : '0px',
+        borderRadius          : '5px',
+        background            : 'none'
     }
 };
 
-// Create class called PoliticianPokedex that extends the base React Component class
 class PoliticianPokedex extends React.Component {
     constructor(props) {
         super(props);
@@ -34,19 +36,37 @@ class PoliticianPokedex extends React.Component {
             currentModal: '0',
             modalIsOpen: false,
 
-            nameThis: [],
+            filterPartySelected: '',
+            filterHouseSelected: '',
+
+            unfilteredList: [],
             filteredList: []
         };
     }
 
     // handleSearch = (e) => {
     handleSearch(e) {
-        const condition = new RegExp(e.target.value, 'i');
-        const filtered = this.state.nameThis.filter( function(datum) {
-            return ( datum.name.search(condition) > -1 );
+        const searchCondition = new RegExp(this.searchField.value, 'i');
+        const partyCondition = new RegExp(this.partyField.value, 'i');
+        const houseCondition = new RegExp(this.houseField.value, 'i');
+
+        const filtered = this.state.unfilteredList.filter( function(datum) {
+            return (
+              datum.name.search(searchCondition) > -1
+            );
+        }).filter( function(datum) {
+            return (
+              datum.party.search(partyCondition) > -1
+            );
+        }).filter( function(datum) {
+            return (
+              datum.house.search(houseCondition) > -1
+            );
         });
 
         this.setState({
+            filterPartySelected: this.partyField.value,
+            filterHouseSelected: this.houseField.value,
             filteredList: filtered
         });
     }
@@ -110,12 +130,14 @@ class PoliticianPokedex extends React.Component {
                 party: p.latest_member.party,
                 // Electorate
                 electorate: p.latest_member.electorate,
+                // House
+                house: p.latest_member.house,
                 // Party class
                 partyClass: classType
             };
           });
           self.setState({
-            nameThis: politicians,
+            unfilteredList: politicians,
             filteredList: politicians
           });
         }.bind(this));
@@ -128,24 +150,33 @@ class PoliticianPokedex extends React.Component {
     render() {
         // Politicians
         var plts = this.state.filteredList || [];
-        const politicians = plts.map( function(plt,i) {
+        var politicians = '';
+        if (plts.length > 0) {
+          politicians = plts.map( function(plt,i) {
+              return (
+                <li className={ plt.partyClass } key={i} onClick={ this.openModal.bind(this) } tabindex="1" data-id={ plt.id }>
+                  <div className="pol-image"  style={{backgroundImage: "url(../../img/photos/" + plt.id + ".jpg)"}}>
+                    <div className="overlay"></div>
+                  </div>
+                  <div className="description">
+                      <div className="name">
+                        {plt.name}
+                      </div>
+                      <div className="party">
+                        {plt.party}
+                        {/* plt.house */}
+                      </div>
+                  </div>
+                </li>
+              )
+          }, this);
+        } else {
+          politicians = function() {
             return (
-              <li className={ plt.partyClass } key={i} onClick={ this.openModal.bind(this) } tabindex="1" data-id={plt.id}>
-                <div className="pol-image"  style={{backgroundImage: "url(../../img/photos/" + plt.id + ".jpg)"}}>
-                  <div className="overlay"></div>
-                </div>
-                <div className="description">
-                    <div className="name">
-                      {plt.name}
-                    </div>
-                    <div className="party">
-                      {plt.party}
-                      {/* plt.electorate */}
-                    </div>
-                </div>
-              </li>
-            )
-        }, this);
+              <li>No Results</li>
+            );
+          }
+        }
 
         return (
             <div>
@@ -158,25 +189,39 @@ class PoliticianPokedex extends React.Component {
                                         className="search"
                                         placeholder="Search politicians names..."
                                         onChange={ this.handleSearch.bind(this) }
+                                        ref={(ref) => this.searchField = ref}
                                     />
-                                    <button className="go">Search</button>
                                 </div>
-                                <div className="sort-by filters">
-                                    <div className="label">Showing</div>
+                                <div className="sort-by">
                                     <div className="select-party">
-                                        <button className="selected-party">All Parties</button>
-                                        <div className="options">
-                                            <button className="sort btn" data-sort="name">All Parties</button>
-                                            <button className="sort btn" data-sort="name">Liberal Party</button>
-                                            <button className="sort btn" data-sort="category">Labor Party</button>
-                                            <button className="sort btn" data-sort="category">Greens Party</button>
+                                        <div className="cs-select cs-skin-elastic">
+                                            <select ref={(ref) => this.partyField = ref} value={ this.state.filterPartySelected } className="cs-select cs-skin-elastic" onChange={ this.handleSearch.bind(this) }>
+                                                <option value="" defaultValue>All Parties</option>
+                                                <option className="lib" value="Liberal">Liberal Party</option>
+                                                <option className="lab" value="Labor">Australian Labor Party</option>
+                                                <option className="greens" value="Greens">Australian Greens</option>
+                                                <option className="" value="Independent">Independents</option>
+                                                <option className="" value="National">National Party</option>
+                                                <option className="" value="CWM">CWM</option>
+                                                <option className="" value="Palmer">Palmer United Party</option>
+                                                <option className="" value="Country">Country Liberal Party</option>
+                                                <option className="" value="Liberal Democratic">Liberal Democratic Party</option>
+                                                <option className="" value="Family">Family First Party</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <ul className="filter filters">
-                                    <li className="btn selected">Sort by Name</li>
-                                    <li className="btn">Sort by Party</li>
-                                </ul>
+                                <div className="sort-by">
+                                    <div className="select-party">
+                                        <div className="cs-select cs-skin-elastic">
+                                            <select ref={(ref) => this.houseField = ref} value={ this.state.filterHouseSelected } className="cs-select cs-skin-elastic" onChange={ this.handleSearch.bind(this) }>
+                                                <option value="" defaultValue>Both Houses</option>
+                                                <option className="rep" value="Representatives">House Of Representatives</option>
+                                                <option className="sen" value="Senate">Senate</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <ul className="listed-politicians" id="poledex">

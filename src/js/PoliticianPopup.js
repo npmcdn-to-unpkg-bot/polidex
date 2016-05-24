@@ -8,7 +8,11 @@ class PoliticianPopup extends React.Component {
 
         this.state = {
             response: undefined,
-            politicianId: ''
+            politicianId: '',
+
+            offices: '',
+            voteHistory: '',
+            classType: ''
         };
     }
 
@@ -23,23 +27,72 @@ class PoliticianPopup extends React.Component {
             // immediate feedback and erase the existing content before
             // the new response has been loaded
             this.setState({
-                response: undefined
+                response: undefined,
+                politicianId: politicianId
             });
 
             $.ajax({
                 type: 'GET',
-                url: '../knowledge/individuals/10001.json',
-                // data: {
-                //     politicianId: politicianId
-                // },
+                // url: 'http://theyvoteforyou.org.au/api/v1/people/' + politicianId + '.json?key=s1d5YuLp2cEI%2FG%2B9NK8i',
+                url: '../proxy/crossproxy-individuals.php',
+                data: {
+                    userID: this.props.politicianId
+                },
+                dataType: 'json',
                 success: function(data){
-                    console.log('Success');
-
-                    if ( self.props.politicianId === politicianId ) {
-                        self.setState({
-                            response: data
-                        });
+                    // Positions
+                    var offices = '';
+                    if (0 > 0) {
+                        // for (var i = 0; i < this.state.response.offices.length; ++i) {
+                        //     offices += this.state.response.offices[i].position;
+                        //     if (i !== this.state.response.offices.length - 1) {
+                        //         offices += ' / ';
+                        //     }
+                        // }
+                    } else {
+                        offices = "No position currently held";
                     }
+
+                    console.log(data);
+
+                    // Get three random votes
+                    var voteHistory = '';
+                    var voteHistory = self.createRandomVotes(
+                      data.policy_comparisons,
+                      data.id
+                    );
+                    var classType = '';
+                    switch(data.latest_member.party) {
+                        case "Liberal Party":
+                            classType = "lib";
+                        break;
+                        case "Australian Labor Party":
+                            classType = "lab";
+                        break;
+                        case "Australian Greens":
+                            classType = "greens";
+                        break;
+                        case "National Party":
+                            classType = "nats";
+                        break;
+                        case "Independent":
+                            classType = "indep";
+                        break;
+                        case "Liberal Democratic Party":
+                            classType = "libdem";
+                        break;
+                        case "Palmer United Party":
+                            classType = "palmer";
+                        break;
+                        default:
+                            classType ='other';
+                    }
+                    self.setState({
+                        response: data,
+                        classType: classType,
+                        voteHistory: voteHistory,
+                        offices: offices
+                    });
                 },
                 error: function(xhr, status, error) {
                   var err = eval("(" + xhr.responseText + ")");
@@ -69,89 +122,108 @@ class PoliticianPopup extends React.Component {
         }
 
         for (var i = 0; i < value; i++) {
+            // Get a random issue
             var numberCrazy = Math.floor((Math.random() * 30) + 1);
-            var id = 'issue'+i+memId;
-            var percent = Math.abs(data[numberCrazy].agreement-50);
-            var circle = (percent * 3.6);
+            // Dunno
+            // var percent = Math.abs(data[numberCrazy].agreement);
+            var i = 1;
+
+            var deg = 360 * data[i].agreement / 100;
 
             var yaynay;
             var believe;
+            var moreThan = '';
 
             if(data[i].agreement > 50) {
-                yaynay = "Voted <span>in favour</span> of ";
-                believe = "believe";
+              yaynay = data[i].agreement + "% in favour of ";
+              believe = "believe";
+              moreThan = "for";
             } else if (data[i].agreement < 50) {
-                yaynay = "Voted <span>against</span> ";
-                believe = "do not believe";
+              yaynay = data[i].agreement + "% against ";
+              believe = "do not believe";
+              moreThan = "against";
             } else if (data[i].agreement = 50) {
-                yaynay= "Has never voted on ";
+              yaynay= "Has never voted on ";
+              moreThan = "neutral";
             } else {
-                console.log("Might need to rethink these");
+              console.log("Might need to rethink these");
             }
+
+            return (
+              <div className={"issue clearfix " + moreThan}>
+                  <div className={"progress-pie-chart " + moreThan} data-percent="0">
+                      <div className="ppc-progress">
+                          <div className="ppc-progress-fill" style={{transform: "rotate(" + deg + "deg)"}}></div>
+                      </div>
+                      <div className="ppc-percents">
+                          <div className="pcc-percents-wrapper">
+                              <span>{ data[i].agreement }%</span>
+                          </div>
+                      </div>
+                  </div>
+                  <div className="issue-title">{ yaynay } { data[i].policy.name }</div>
+                  {/*<div className="issue-description"> data[i].policy.description </div> */}
+              </div>
+            )
         }
 
-        return (
-          <div className="issue">
-            <div className="issue-title">{ data[1].policy.name }</div>
-            <div className="issue-description">{ data[1].policy.description }</div>
-            <div className="issue-agreement">{ data[1].agreement }</div>
-            <div>{ data[1].voted }</div>
-          </div>
-        )
+
     }
 
     render(props) {
         // Handle case where the response is not here yet
         if ( !this.state.response ) {
             return (
-                <div>Loading...</div>
+                <div>
+                  <div className="loading-popup">
+                      <div className="loading">
+                          <p>Loading...</p>
+                          <div className="spin"></div>
+                      </div>
+                  </div>
+                </div>
             )
         }
 
         // Gives you the opportunity to handle the case where the ajax request completed but the result array is empty
         if ( this.state.response.length === 0 ) {
             return (
-                <div>No result found for this subscription</div>
+                <div>
+                  <div className="politician-popup">No result found for this subscription</div>
+                </div>
             )
         }
-
-        // Positions
-        var offices = '';
-        if (this.state.response.offices.length > 0) {
-            for (var i = 0; i < this.state.response.offices.length; ++i) {
-                offices += this.state.response.offices[i].position;
-                if (i !== this.state.response.offices.length - 1) {
-                    offices += ' / ';
-                }
-            }
-        } else {
-            offices = "No position currently held";
-        }
-
-        // Get three random votes
-        var voteHistory = this.createRandomVotes(  this.state.response.policy_comparisons, this.state.response.id );
 
         return (
             <div>
                 <div className="politician-popup">
-                  <div className="pop-image" style={{backgroundImage: "url(../img/photos/" + this.state.response.id + ".jpg)"}}>
+                  <div className="pol-title">
+                      <div className={"party " + this.state.classType}>{ this.state.response.latest_member.party }</div>
+                      <div className="name">{ this.state.response.latest_member.name.first } { this.state.response.latest_member.name.last }</div>
                   </div>
-                  <div className="pop-content">
-                    <div className="name">{ this.state.response.latest_member.name.first } { this.state.response.latest_member.name.last }</div>
-                    <div className="party">{ this.state.response.latest_member.party }</div>
-                    <div className="positions">{ offices }</div>
-                    <div className="vote-history">
-                      { voteHistory }
+                  <div className="pol-info clearfix">
+                    <div className="pop-image" style={{backgroundImage: "url(../img/photos/" + this.state.response.id + ".jpg)"}}>
+                        <div className="overlay">
+                            <div className="house">{ this.state.response.latest_member.house }</div>
+                            <div className="positions">{ this.state.offices }</div>
+                        </div>
                     </div>
-                    <div className="map-area">
-                        <div className="house">
-                          <PopupMap
-                            mapArea={ this.state.response.latest_member.house }
-                          />
+                    <div className="pop-content">
+                      <div className="vote-history">
+                        { this.state.voteHistory }
+                      </div>
+                      {/*
+                        <div className="map-area">
+                            <div className="house">
+                              <PopupMap
+                                mapArea={ this.state.response.latest_member.house }
+                              />
+                            </div>
+                            <div className="electorate">
+                              { this.state.response.latest_member.electorate }
+                            </div>
                         </div>
-                        <div className="electorate">
-                          { this.state.response.latest_member.electorate }
-                        </div>
+                      */}
                     </div>
                   </div>
                 </div>

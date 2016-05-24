@@ -1,0 +1,37 @@
+.basic-content {
+    max-width: 600px;
+}
+
+.basic-content h1 {
+  font-family: 'Lyon Display';
+  color: #10293b;
+  font-weight: bold;
+  @include font-size(32);
+  @include line-height(36);
+  margin: 0 0 10px 0;
+}
+
+.basic-content h2 {
+  color: #10293b;
+  font-weight: bold;
+  @include font-size(24);
+  @include line-height(28);
+  margin: 0 0 10px 0;
+}
+
+.basic-content p {
+  color: #556571;
+  @include font-size(18);
+  @include line-height(24);
+  margin: 0 0 20px 0;
+}
+
+.basic-content a {
+  color: #0493D8;
+}
+
+.basic-content img {
+  float: left;
+  max-width: 30%;
+  margin: 0 20px 20px 0px;
+}

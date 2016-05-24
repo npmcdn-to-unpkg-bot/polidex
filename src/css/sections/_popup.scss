@@ -1,59 +1,284 @@
+/* Close Button */
+.close {
+    z-index: 2;
+}
+
+/* Loading */
+.loading-popup {
+  background: #FFFFFF;
+  padding: 80px;
+  border-radius: 5px;
+  
+  .loading {
+    margin: 0 auto;
+    width: 125px;
+    height: 118px;
+    position: relative;
+  }
+
+  p {
+    position: absolute;
+    top: 50%;
+    margin-top: -8px;
+    text-align: center;
+    z-index: 99;
+    color: #000000;
+    font-size: 12px;
+    line-height: 16px;
+    width: 100%;
+    overflow: hidden;
+    animation: dots 2s steps(2) linear infinite;
+    color: gray;
+  }
+
+  .spin {
+    height: 100%;
+    margin: 10% auto;
+    border-right: 5px solid #D20000;
+    border-bottom: 5px solid transparent;
+    border-radius: 100%;
+    animation: spin 0.9s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+    border-right-color: #D22020;
+  }
+  50% {
+    transform: rotate(180deg);
+    border-right-color: #A27AD7;
+  }
+  100% {
+    transform: rotate(360deg);
+    border-right-color: #D22020;
+  }
+}
+
+/* Popup */
 .politician-popup {
-  min-height: 280px;
-  padding-left: 220px;
-  position: relative;
+    position: relative;
+    max-width: 800px;
+}
+
+.pol-info {
+    position: relative;
+    padding-left: 240px;
+    height: 320px;
+    border-radius: 0 0 5px 5px;
+    overflow: hidden;
+}
+
+.politician-popup .pol-title {
+   @include padding-all(20,20,20,20);
+   background-color: #FFFFFF;
+   border-radius: 5px 5px 0px 0px;
+}
+
+.politician-popup .name {
+  font-family: 'Lyon Display';
+   @include font-size(26);
+   @include line-height(28);
+   font-weight: bold;
+   color: #10293b;
+}
+.politician-popup .party {
+  float: right;
+  @include padding-all(0,10,0,10);
+  background-color: #DEDEDE;
+  color: #FFFFFF;
+  @include font-size(14);
+  @include line-height(28);
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-left: 20px;
+  border-radius: 5px;
+
+   &.lib {
+      background-color: $lib-colour;
+   }
+   &.lab {
+      background-color: $lab-colour;
+   }
+   &.green {
+      background-color: $greens-colour;
+   }
+   &.libdem {
+      background-color: $libdem-colour;
+   }
+   &.indep {
+      background-color: $indep-colour;
+   }
+   &.palmer {
+       background-color: $palmer-colour;
+   }
+   &.nats {
+       background-color: $nats-colour;
+   }
+   &.other {
+       background-color: $other-colour;
+   }
 }
 
 .politician-popup .pop-image {
-    width: 200px;
-    height: 280px;
+    width: 240px;
+    height: 320px;
     background-position: center;
     background-size: cover;
-    border-radius: 5px;
     position: absolute;
     top: 0;
     left: 0;
 }
 
+.politician-popup .pop-image .overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  @include padding(20);
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
+
+  .positions {
+    color: #FFFFFF;
+    @include font-size(18);
+    @include line-height(24);
+  }
+  .house {
+    color: #FFFFFF;
+    @include font-size(12);
+    font-weight: bold;
+    text-transform: uppercase;
+    @include margin-all(0,0,6,0);
+  }
+}
+
 /* Details */
 .pop-content {
-    width: 420px;
-}
-
-.pop-content .name {
-   @include font-size(24);
-   @include line-height(28);
-   font-weight: bold;
-   color: #10293b;
-}
-
-.pop-content .party {
-   @include font-size(14);
-   @include line-height(18);
-   font-weight: bold;
-   color: #10293b;
-   text-transform: uppercase;
+    max-width: 520px;
 }
 
 .pop-content .map-area {
 
 }
 
-.pop-content .vote-history {
-
+.vote-history {
+  height: 320px;
+  overflow-y: scroll;
+  background: #e8ebed;
 }
 
-.pop-content .vote-history .issue {
-  
+.vote-history::-webkit-scrollbar {
+    width: 10px;
 }
 
-.swing-title {
-    font-weight: 500;
-    font-size: 20px;
-    font-size: 1.25rem;
-    line-height: 24px;
-    line-height: 1.5rem;
-    margin: 0px 0px 10px 0px;
-    margin: 0rem 0rem 0.625rem 0rem;
-    color: #35373C;
+.vote-history::-webkit-scrollbar-track {
+	background: #C4CACE;
+}
+
+.vote-history::-webkit-scrollbar-thumb {
+	background-color: #386585;
+	border: none;
+}
+
+.vote-history .issue {
+    @include padding-all(20,20,0,20);
+    position: relative;
+    margin: 10px;
+    border-radius: 5px;
+
+    &:not(:nth-child(1)) {
+    }
+
+    &.for {
+      background-color: #40C963;
+
+      .ppc-percents {
+        background-color: #40C963;
+      }
+    }
+    &.against {
+      background-color: #DF4949;
+
+      .ppc-percents {
+        background-color: #DF4949;
+      }
+    }
+    &.neutral {
+      background-color: #7270D4;
+
+      .ppc-percents {
+        background-color: #7270D4;
+      }
+    }
+}
+
+.vote-history .issue-title {
+    color: #FFFFFF;
+    @include font-size(20);
+    @include line-height(24);
+}
+
+.vote-history .issue-description {
+    color: #FFFFFF;
+    @include font-size(14);
+    @include line-height(20);
+    margin-bottom: 20px;
+}
+
+/* Circle */
+@mixin circle($size) {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: calc(50% - #{$size/2});
+  top: calc(50% - #{$size/2});
+  width: $size;
+  height: $size;
+}
+
+$size: 76px;
+
+.progress-pie-chart {
+  float: right;
+  margin: 0 0 20px 20px;
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  background-color: rgba(0,0,0,0.15);
+  position: relative;
+}
+.ppc-progress {
+  @include circle($size);
+  clip: rect(0, $size, $size, #{$size/2});
+  .ppc-progress-fill {
+    @include circle($size);
+    clip: rect(0, #{$size/2}, $size, 0);
+    background: #FFFFFF;
+    transform: rotate(0deg);
+		transition: all 1000ms ease;
+  }
+  .for & {
+    clip: rect(0, #{$size/2}, $size, 0);
+    .ppc-progress-fill {
+      clip: rect(0, $size, $size, #{$size/2});
+      background: #FFFFFF;
+    }
+  }
+}
+.ppc-percents {
+  @include circle(#{$size/1.15});
+  background: #fff;
+  text-align: center;
+  display: table;
+  span {
+    display: block;
+    @include font-size(16);
+    font-weight: bold;
+    color: #FFFFFF;
+  }
+}
+.pcc-percents-wrapper {
+  display: table-cell;
+  vertical-align: middle;
 }

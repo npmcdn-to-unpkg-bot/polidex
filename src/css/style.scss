@@ -13,6 +13,7 @@
 @import "mixins/_other";
 
 /*** ***/
+@import "base/_fonts";
 @import "base/_screen";
 
 /*** Sections ***/
@@ -21,6 +22,7 @@
 @import "sections/_politicians";
 @import "sections/_popup";
 @import "sections/_maps";
+@import "sections/_content";
 
 /*** Plugins ***/
 @import "plugins/_modal";
