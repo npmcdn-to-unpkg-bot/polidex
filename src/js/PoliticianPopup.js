@@ -12,6 +12,7 @@ class PoliticianPopup extends React.Component {
 
             offices: '',
             voteHistory: '',
+            voteHistoryFiltered: '',
             classType: ''
         };
     }
@@ -42,25 +43,24 @@ class PoliticianPopup extends React.Component {
                 success: function(data){
                     // Positions
                     var offices = '';
-                    if (0 > 0) {
-                        // for (var i = 0; i < this.state.response.offices.length; ++i) {
-                        //     offices += this.state.response.offices[i].position;
-                        //     if (i !== this.state.response.offices.length - 1) {
-                        //         offices += ' / ';
-                        //     }
-                        // }
+                    if (data.offices.length > 0) {
+                        for (var i = 0; i < data.offices.length; ++i) {
+                            offices += data.offices[i].position;
+                            if (i !== data.offices.length - 1) {
+                                offices += ' / ';
+                            }
+                        }
                     } else {
                         offices = "No position currently held";
                     }
 
-                    console.log(data);
-
                     // Get three random votes
                     var voteHistory = '';
-                    var voteHistory = self.createRandomVotes(
+                    var voteHistory = self.createVoteHistory(
                       data.policy_comparisons,
                       data.id
                     );
+
                     var classType = '';
                     switch(data.latest_member.party) {
                         case "Liberal Party":
@@ -91,6 +91,7 @@ class PoliticianPopup extends React.Component {
                         response: data,
                         classType: classType,
                         voteHistory: voteHistory,
+                        voteHistoryFiltered: voteHistory,
                         offices: offices
                     });
                 },
@@ -114,58 +115,91 @@ class PoliticianPopup extends React.Component {
         this.loadPoliticianData(nextProps.politicianId);
     }
 
-    createRandomVotes(data, memId) {
-        // How many votes to display
-        var value = 4;
-        if (data.length <= value) {
-            value = data.length;
-        }
+    handleSearch(e) {
+        const searchCondition = new RegExp(e.target.value, 'i');
+        console.log(this.state.voteHistory.props.children);
+        const filtered = this.state.voteHistory.props.children.filter( function(datum) {
+            console.log(datum);
+            return (
+              datum.props.children.props.children[2].search(searchCondition) > -1
+            );
+        });
 
+        this.setState({
+            voteHistoryFiltered: filtered
+        });
+    }
+
+    createVoteHistory(data, memId) {
+        // How many votes to display
+        var value = data.length;
+
+        var voteHistory = [];
         for (var i = 0; i < value; i++) {
             // Get a random issue
             var numberCrazy = Math.floor((Math.random() * 30) + 1);
-            // Dunno
-            // var percent = Math.abs(data[numberCrazy].agreement);
-            var i = 1;
+            var b = i;
 
-            var deg = 360 * data[i].agreement / 100;
+            var deg = 360 * data[b].agreement / 100;
 
             var yaynay;
             var believe;
             var moreThan = '';
 
-            if(data[i].agreement > 50) {
-              yaynay = data[i].agreement + "% in favour of ";
+            if(data[b].agreement >= 80) {
+              yaynay = "Strongly in favour of ";
+              believe = "believe";
+              moreThan = "strongfor";
+            } else if (data[b].agreement >= 60 && data[b].agreement < 80) {
+              yaynay = "In favour of ";
               believe = "believe";
               moreThan = "for";
-            } else if (data[i].agreement < 50) {
-              yaynay = data[i].agreement + "% against ";
+            } else if (data[b].agreement >= 40 && data[b].agreement < 60) {
+              yaynay = "Neutral on ";
+              believe = "neutral";
+              moreThan = "neutral";
+            } else if (data[b].agreement >= 20 && data[b].agreement < 40) {
+              yaynay = "Against ";
               believe = "do not believe";
               moreThan = "against";
-            } else if (data[i].agreement = 50) {
-              yaynay= "Has never voted on ";
-              moreThan = "neutral";
+            } else if (data[b].agreement >= 0 && data[b].agreement < 20) {
+              yaynay = "Strongly against ";
+              believe = "do not believe";
+              moreThan = "strongagainst";
             } else {
-              console.log("Might need to rethink these");
             }
 
-            return (
-              <div className={"issue clearfix " + moreThan}>
+            voteHistory.push(
+              <div className={"issue clearfix " + moreThan} key={i}>
+                  {/*
                   <div className={"progress-pie-chart " + moreThan} data-percent="0">
                       <div className="ppc-progress">
                           <div className="ppc-progress-fill" style={{transform: "rotate(" + deg + "deg)"}}></div>
                       </div>
                       <div className="ppc-percents">
                           <div className="pcc-percents-wrapper">
-                              <span>{ data[i].agreement }%</span>
+                              <span>{ data[b].agreement }%</span>
                           </div>
                       </div>
                   </div>
-                  <div className="issue-title">{ yaynay } { data[i].policy.name }</div>
-                  {/*<div className="issue-description"> data[i].policy.description </div> */}
+                  */}
+                  <div className="issue-title">
+                      <svg>
+                        <use href="img/sprite.svg#thumb-up" />
+                      </svg>
+                      { yaynay }
+                      { data[b].policy.name }
+                  </div>
+                  {/*<div className="issue-description"> data[b].policy.description </div> */}
               </div>
-            )
+            );
         }
+
+        return (
+          <div>
+            { voteHistory }
+          </div>
+        )
 
 
     }
@@ -197,9 +231,9 @@ class PoliticianPopup extends React.Component {
         return (
             <div>
                 <div className="politician-popup">
-                  <div className="pol-title">
-                      <div className={"party " + this.state.classType}>{ this.state.response.latest_member.party }</div>
+                  <div className="pol-title clearfix">
                       <div className="name">{ this.state.response.latest_member.name.first } { this.state.response.latest_member.name.last }</div>
+                      <div className={"party " + this.state.classType}>{ this.state.response.latest_member.party }</div>
                   </div>
                   <div className="pol-info clearfix">
                     <div className="pop-image" style={{backgroundImage: "url(../img/photos/" + this.state.response.id + ".jpg)"}}>
@@ -210,7 +244,11 @@ class PoliticianPopup extends React.Component {
                     </div>
                     <div className="pop-content">
                       <div className="vote-history">
-                        { this.state.voteHistory }
+                        {/* <div className="title">Voting History</div> */}
+                        <div className="search">
+                          <input onChange={ this.handleSearch.bind(this) } type="search" placeholder="Search voting history..." />
+                        </div>
+                        { this.state.voteHistoryFiltered }
                       </div>
                       {/*
                         <div className="map-area">

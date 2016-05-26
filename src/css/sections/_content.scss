@@ -31,7 +31,12 @@
 }
 
 .basic-content img {
-  float: left;
-  max-width: 30%;
-  margin: 0 20px 20px 0px;
+  float: right;
+  max-width: 60px;
+  margin: 0 0 20px 20px;
+  border-radius: 5px;
+}
+
+.basic-content p:last-child {
+  margin-bottom: 0;
 }

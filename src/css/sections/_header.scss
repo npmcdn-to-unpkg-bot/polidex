@@ -20,23 +20,27 @@ header .logo {
     line-height: 30px;
     height: 50px;
     font-family: 'Lyon Display';
-    padding: 13px 10px 7px 10px;
+    padding: 13px 10px 7px 44px;
 
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     max-width: 80%;
+    position: relative;
+}
+
+header .logo svg {
+  position: absolute;
+  top: 50%;
+  margin-top: -13px;
+  left: 12px;
+  width: 24px;
+  height: 24px;
+  display: block;
 }
 
 header .logo span {
   color: #10293b;
-}
-
-header .logo svg {
-    display: block;
-    height: 32px;
-    width: 108px;
-    margin: 9px 0px;
 }
 
 header .open-menu {

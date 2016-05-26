@@ -8,7 +8,7 @@
   background: #FFFFFF;
   padding: 80px;
   border-radius: 5px;
-  
+
   .loading {
     margin: 0 auto;
     width: 125px;
@@ -82,6 +82,7 @@
    @include line-height(28);
    font-weight: bold;
    color: #10293b;
+   float: left;
 }
 .politician-popup .party {
   float: right;
@@ -182,48 +183,105 @@
 }
 
 .vote-history .issue {
-    @include padding-all(20,20,0,20);
+    @include font-size(16);
+    @include line-height(16);
+    @include padding-all(10,10,10,46);
     position: relative;
     margin: 10px;
     border-radius: 5px;
+    overflow: hidden;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 36px;
+      background: #40C963;
+      border-radius: 5px 0 0 5px;
+    }
+
+    svg {
+      position: absolute;
+      top: 50%;
+      margin-top: -8px;
+      left: 10px;
+      width: 16px;
+      height: 16px;
+      fill: #FFFFFF;
+    }
 
     &:not(:nth-child(1)) {
     }
 
-    &.for {
-      background-color: #40C963;
+    &.strongfor {
+      background-color: #8EE69B;
 
+      &:before,
       .ppc-percents {
         background-color: #40C963;
       }
     }
-    &.against {
-      background-color: #DF4949;
+    &.for {
+      background-color: #BEE18B;
 
+      &:before,
       .ppc-percents {
-        background-color: #DF4949;
+        background-color: #91C940;
       }
     }
     &.neutral {
-      background-color: #7270D4;
+      background-color: #E3D68A;
 
+      &:before,
       .ppc-percents {
-        background-color: #7270D4;
+        background-color: #D7BF31;
+      }
+    }
+    &.against {
+      background-color: #E6C2A6;
+
+      &:before,
+      .ppc-percents {
+        background-color: #E39252;
+      }
+    }
+    &.strongagainst {
+      background-color: #EEA5A5;
+
+      &:before,
+      .ppc-percents {
+        background-color: #DF4949;
       }
     }
 }
 
 .vote-history .issue-title {
-    color: #FFFFFF;
-    @include font-size(20);
-    @include line-height(24);
 }
 
-.vote-history .issue-description {
-    color: #FFFFFF;
-    @include font-size(14);
-    @include line-height(20);
-    margin-bottom: 20px;
+.vote-history .title {
+    color: #10293b;
+    @include font-size(18);
+    @include line-height(22);
+    margin: 10px;
+    padding: 8px 10px 0 10px;
+    border: 1px solid #A4B2BC;
+    border-bottom: none;
+    display: inline-block;
+}
+
+.vote-history .search {
+    margin: 10px;
+}
+
+.vote-history .search input[type="search"] {
+    color: #10293b;
+    @include font-size(18);
+    @include line-height(22);
+    padding: 8px 10px 8px 10px;
+    border: 1px solid #A4B2BC;
+    width: 100%;
 }
 
 /* Circle */
@@ -258,13 +316,6 @@ $size: 76px;
     transform: rotate(0deg);
 		transition: all 1000ms ease;
   }
-  .for & {
-    clip: rect(0, #{$size/2}, $size, 0);
-    .ppc-progress-fill {
-      clip: rect(0, $size, $size, #{$size/2});
-      background: #FFFFFF;
-    }
-  }
 }
 .ppc-percents {
   @include circle(#{$size/1.15});
@@ -281,4 +332,52 @@ $size: 76px;
 .pcc-percents-wrapper {
   display: table-cell;
   vertical-align: middle;
+}
+
+.progress-pie-chart.for {
+  background: #FFFFFF;
+
+  & {
+  clip: rect(0, #{$size/2}, $size, 0);
+
+    .ppc-progress-fill {
+      clip: rect(0, $size, $size, #{$size/2});
+      background: #2BAA4B;
+    }
+  }
+}
+
+/* Bigger Screens */
+@media screen and (min-width: 920px) {
+  .ReactModal__Content {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin-right: -50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+
+}
+
+@media screen and (max-width: 420px) {
+  .politician-popup .pol-title {
+    text-align: center;
+  }
+  .politician-popup .name {
+    float: none;
+  }
+  .politician-popup .party {
+    float: none;
+    display: inline-block;
+    margin: 6px 0 0 0;
+  }
+  .pol-info {
+    padding: 0;
+    height: auto;
+  }
+  .politician-popup .pop-image {
+    position: relative;
+  }
 }

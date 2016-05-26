@@ -33,6 +33,18 @@
   text-align: center;
 }
 
+.banner .filter-and-search {
+    position: relative;
+    float: left;
+    width: 100%;
+
+    @supports (display: flex) {
+      float: none;
+      display: flex;
+      flex-wrap: wrap;
+    }
+}
+
 .banner .field.search-field {
     position: relative;
     float: left;
@@ -115,21 +127,6 @@
     box-shadow: 0px 0px 5px #0493D8;
 }
 
-@media screen and (max-width: 1140px) {
-  .banner .field.search-field {
-      width: 98%;
-  }
-  .sort-by {
-      width: 48%;
-  }
-}
-
-@media screen and (max-width: 720px) {
-  .sort-by {
-      width: 98%;
-  }
-}
-
 /* */
 .container {
     font-size: 0px;
@@ -154,7 +151,7 @@
 
 /* Politicians Listed */
 .listed-politicians {
-    padding: 30px 1.5% 0 1.5%;
+    padding: 1%;
 
     @supports (display: flex) {
       display: flex;
@@ -165,8 +162,13 @@
 
 .listed-politicians li {
     width: 10.5%;
-    margin: 0 1% 30px 1%;
+    margin: 1%;
     cursor: pointer;
+    float: left;
+
+    @supports (display: flex) {
+      float: none;
+    }
 
     @media screen and (max-width: 100em) {
       width: 12.2867%;
@@ -188,11 +190,11 @@
       width: 31.3333%;
     }
 
-    @media screen and (max-width: 26em) {
+    @media screen and (max-width: 28em) {
       width: 48%;
     }
 
-    @media screen and (max-width: 18em) {
+    @media screen and (max-width: 16em) {
       width: 98%;
     }
 }
@@ -278,4 +280,36 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+
+@media screen and (max-width: 1140px) {
+  .banner .field.search-field {
+      width: 98%;
+  }
+  .sort-by {
+      width: 48%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .banner .title {
+    @include font-size(28);
+    @include line-height(32);
+  }
+  .banner .filter-and-search {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(11, 60, 82, 0.92);
+    z-index: 3;
+    padding: 7px 0;
+  }
+  .banner .field.search-field,
+  .sort-by {
+    margin: 7px 1% 7px 1%;
+  }
+  .banner .overlay {
+    padding: 80px 1.5% 0px 1.5%;
+  }
 }

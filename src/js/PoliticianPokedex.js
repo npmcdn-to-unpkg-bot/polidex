@@ -11,20 +11,21 @@ const customStyles = {
         right             : 0,
         bottom            : 0,
         backgroundColor   : 'rgba(16, 41, 59, 0.5)',
-        zIndex            : '3'
+        zIndex            : '3',
+        padding           : '20px'
     },
     content : {
-        top                   : '50%',
-        left                  : '50%',
+        position              : 'relative',
+        top                   : 'auto',
+        left                  : 'auto',
         right                 : 'auto',
         bottom                : 'auto',
-        marginRight           : '-50%',
-        transform             : 'translate(-50%, -50%)',
         border                : 'none',
         overflow              : 'visible',
         padding               : '0px',
         borderRadius          : '5px',
-        background            : 'none'
+        background            : 'none',
+        margin                : '40px auto 40px auto'
     }
 };
 
@@ -187,43 +188,45 @@ class PoliticianPokedex extends React.Component {
                                 <div className="title">
                                     Search, sort and find out more about Australia&#39;s federal politicians.
                                 </div>
-                                <div className="field search-field">
-                                    <input
-                                        className="search"
-                                        placeholder="Search by name..."
-                                        onChange={ this.handleSearch.bind(this) }
-                                        ref={(ref) => this.searchField = ref}
-                                    />
-                                </div>
-                                <div className="sort-by">
-                                    <div className="select-party">
-                                        <div className="cs-select cs-skin-elastic">
-                                            <select ref={(ref) => this.partyField = ref} value={ this.state.filterPartySelected } className="cs-select cs-skin-elastic" onChange={ this.handleSearch.bind(this) }>
-                                                <option value="" defaultValue>All Parties</option>
-                                                <option className="lib" value="Liberal">Liberal Party</option>
-                                                <option className="lab" value="Labor">Australian Labor Party</option>
-                                                <option className="greens" value="Greens">Australian Greens</option>
-                                                <option className="" value="Independent">Independents</option>
-                                                <option className="" value="National">National Party</option>
-                                                <option className="" value="CWM">CWM</option>
-                                                <option className="" value="Palmer">Palmer United Party</option>
-                                                <option className="" value="Country">Country Liberal Party</option>
-                                                <option className="" value="Liberal Democratic">Liberal Democratic Party</option>
-                                                <option className="" value="Family">Family First Party</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="sort-by">
-                                    <div className="select-party">
-                                        <div className="cs-select cs-skin-elastic">
-                                            <select ref={(ref) => this.houseField = ref} value={ this.state.filterHouseSelected } className="cs-select cs-skin-elastic" onChange={ this.handleSearch.bind(this) }>
-                                                <option value="" defaultValue>Both Houses</option>
-                                                <option className="rep" value="Representatives">House Of Representatives</option>
-                                                <option className="sen" value="Senate">Senate</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                <div className="filter-and-search">
+                                  <div className="field search-field">
+                                      <input
+                                          className="search"
+                                          placeholder="Search by name..."
+                                          onChange={ this.handleSearch.bind(this) }
+                                          ref={(ref) => this.searchField = ref}
+                                      />
+                                  </div>
+                                  <div className="sort-by">
+                                      <div className="select-party">
+                                          <div className="cs-select cs-skin-elastic">
+                                              <select ref={(ref) => this.partyField = ref} value={ this.state.filterPartySelected } className="cs-select cs-skin-elastic" onChange={ this.handleSearch.bind(this) }>
+                                                  <option value="" defaultValue>All Parties</option>
+                                                  <option className="lib" value="Liberal">Liberal Party</option>
+                                                  <option className="lab" value="Labor">Australian Labor Party</option>
+                                                  <option className="greens" value="Greens">Australian Greens</option>
+                                                  <option className="" value="Independent">Independents</option>
+                                                  <option className="" value="National">National Party</option>
+                                                  <option className="" value="CWM">CWM</option>
+                                                  <option className="" value="Palmer">Palmer United Party</option>
+                                                  <option className="" value="Country">Country Liberal Party</option>
+                                                  <option className="" value="Liberal Democratic">Liberal Democratic Party</option>
+                                                  <option className="" value="Family">Family First Party</option>
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div className="sort-by">
+                                      <div className="select-party">
+                                          <div className="cs-select cs-skin-elastic">
+                                              <select ref={(ref) => this.houseField = ref} value={ this.state.filterHouseSelected } className="cs-select cs-skin-elastic" onChange={ this.handleSearch.bind(this) }>
+                                                  <option value="" defaultValue>Both Houses</option>
+                                                  <option className="rep" value="Representatives">House Of Representatives</option>
+                                                  <option className="sen" value="Senate">Senate</option>
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
                                 </div>
                             </div>
                         </div>
