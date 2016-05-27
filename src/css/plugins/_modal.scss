@@ -4,13 +4,13 @@
 
 .ReactModal__Content button.close {
     position: absolute;
-    top: -16px;
-    right: -16px;
-    width: 32px;
-    height: 32px;
+    top: 32px;
+    right: 32px;
+    width: 48px;
+    height: 48px;
     border: none;
-    background: #304A5D;
-    border-radius: 16px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 50%;
     transform: rotate(45deg);
     white-space: nowrap;
     text-indent: 150%;

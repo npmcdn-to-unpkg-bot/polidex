@@ -11,21 +11,23 @@ const customStyles = {
         right             : 0,
         bottom            : 0,
         backgroundColor   : 'rgba(16, 41, 59, 0.5)',
-        zIndex            : '3',
-        padding           : '20px'
+        zIndex            : 3,
+        overflowY         : 'auto'
     },
     content : {
-        position              : 'relative',
+        display               : 'table',
+        width                 : '100%',
+        height                : '100%',
+        position              : 'static',
+        background            : 'none',
         top                   : 'auto',
         left                  : 'auto',
         right                 : 'auto',
         bottom                : 'auto',
+        marginRight           : '0',
+        transform             : 'none',
         border                : 'none',
-        overflow              : 'visible',
-        padding               : '0px',
-        borderRadius          : '5px',
-        background            : 'none',
-        margin                : '40px auto 40px auto'
+        padding               : '0'
     }
 };
 
@@ -113,11 +115,29 @@ class PoliticianPokedex extends React.Component {
                 case "Independent":
                     classType = "indep";
                 break;
+                case "Independents":
+                    classType = "indep";
+                break;
                 case "Liberal Democratic Party":
                     classType = "libdem";
                 break;
                 case "Palmer United Party":
                     classType = "palmer";
+                break;
+                case "CWM":
+                    classType = "cwm";
+                break;
+                case "Country Liberal Party":
+                    classType = "country";
+                break;
+                case "Family First Party":
+                    classType = "familyfirst";
+                break;
+                case "Australian Motoring Enthusiast Party":
+                    classType = "motoring";
+                break;
+                case "Liberal National Party":
+                    classType = "libnat";
                 break;
                 default:
                     classType ='other';
@@ -171,13 +191,9 @@ class PoliticianPokedex extends React.Component {
                 </li>
               )
           }, this);
-        } else {
-          politicians = function() {
-            return (
-              <li>No Results</li>
-            );
-          }
-        }
+      } else {
+          politicians = <li className="noresults"><div className="message">No results for this search, please try changing the parameters.</div></li>;
+      }
 
         return (
             <div>
@@ -212,6 +228,8 @@ class PoliticianPokedex extends React.Component {
                                                   <option className="" value="Country">Country Liberal Party</option>
                                                   <option className="" value="Liberal Democratic">Liberal Democratic Party</option>
                                                   <option className="" value="Family">Family First Party</option>
+                                                  <option className="" value="Liberal National">Liberal National Party</option>
+                                                  <option className="" value="Motoring">Australian Motoring Enthusiast Party</option>
                                               </select>
                                           </div>
                                       </div>

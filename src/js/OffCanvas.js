@@ -11,11 +11,14 @@ const customStyles = {
         bottom            : 0,
         backgroundColor   : 'rgba(16, 41, 59, 0.5)',
         zIndex            : 3,
-        overflowX         : 'hidden',
-        overflowY         : 'scroll'
+        overflowY         : 'auto'
     },
     content : {
-        position              : 'relative',
+        display               : 'table',
+        width                 : '100%',
+        height                : '100%',
+        position              : 'static',
+        background            : 'none',
         top                   : 'auto',
         left                  : 'auto',
         right                 : 'auto',
@@ -23,9 +26,7 @@ const customStyles = {
         marginRight           : '0',
         transform             : 'none',
         border                : 'none',
-        overflow              : 'visible',
-        padding               : '40px',
-        margin                : '40px 20px 40px 20px'
+        padding               : '0'
     }
 };
 
@@ -60,7 +61,7 @@ export default class OffCanvas extends React.Component {
     aboutContent() {
       if (this.state.currentContent == 'About') {
         return (
-          <div>
+          <div className="basic-content">
             <h1>About &amp; History</h1>
             <p>Quickly sort through Australia’s federal parliamentarians, and find out where they sit on this issues that matter to you.</p>
             <h2>How did it start?</h2>
@@ -75,12 +76,12 @@ export default class OffCanvas extends React.Component {
         )
       } else if (this.state.currentContent = 'Credits') {
         return (
-          <div>
+        <div className="basic-content">
             <h1>Credits</h1>
             <p>We took inspiration from the fantastic site <a href="https://web.archive.org/web/20141015082555/http://you-know-nothing.com/">You Know Nothing</a>, by Pierre Georges.</p>
             <h2>Politician Data: They Vote For You</h2>
             <p><img src="img/content/theyvoteforyou-logo.png" />Most of the political data is pulled from <a href="https://theyvoteforyou.org.au/" title="They Vote For You Website">They Vote For You</a>, for public data source generously made available by the OpenAustralia Foundation.</p>
-          </div>
+        </div>
         )
       }
     }
@@ -109,7 +110,7 @@ export default class OffCanvas extends React.Component {
                 style={ customStyles }
             >
                 <button className="close" onClick={ this.closeModal.bind(this) }>Close</button>
-                <div className="basic-content">
+                <div className="popup-holder">
                     { this.aboutContent() }
                 </div>
             </Modal>

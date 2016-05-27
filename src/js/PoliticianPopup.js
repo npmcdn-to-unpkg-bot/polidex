@@ -118,12 +118,16 @@ class PoliticianPopup extends React.Component {
     handleSearch(e) {
         const searchCondition = new RegExp(e.target.value, 'i');
         console.log(this.state.voteHistory.props.children);
-        const filtered = this.state.voteHistory.props.children.filter( function(datum) {
+        var filtered = this.state.voteHistory.props.children.filter( function(datum) {
             console.log(datum);
             return (
               datum.props.children.props.children[2].search(searchCondition) > -1
             );
         });
+        console.log(filtered);
+        if ( filtered.length < 1 ) {
+            filtered = <div className="put"><div className="message">No results match your search query, please try again.</div></div>;
+        }
 
         this.setState({
             voteHistoryFiltered: filtered
@@ -145,6 +149,13 @@ class PoliticianPopup extends React.Component {
             var yaynay;
             var believe;
             var moreThan = '';
+            var thumb = '';
+
+            if(data[b].agreement >= 50) {
+                thumb = 'up';
+            } else {
+                thumb = 'down';
+            }
 
             if(data[b].agreement >= 80) {
               yaynay = "Strongly in favour of ";
@@ -185,7 +196,7 @@ class PoliticianPopup extends React.Component {
                   */}
                   <div className="issue-title">
                       <svg>
-                        <use href="img/sprite.svg#thumb-up" />
+                        <use href={"img/sprite.svg#thumb-" + thumb} />
                       </svg>
                       { yaynay }
                       { data[b].policy.name }
@@ -208,10 +219,10 @@ class PoliticianPopup extends React.Component {
         // Handle case where the response is not here yet
         if ( !this.state.response ) {
             return (
-                <div>
+                <div className="popup-holder">
                   <div className="loading-popup">
                       <div className="loading">
-                          <p>Loading...</p>
+                          {/* <p>Loading...</p> */}
                           <div className="spin"></div>
                       </div>
                   </div>
@@ -222,24 +233,29 @@ class PoliticianPopup extends React.Component {
         // Gives you the opportunity to handle the case where the ajax request completed but the result array is empty
         if ( this.state.response.length === 0 ) {
             return (
-                <div>
+                <div className="popup-holder">
                   <div className="politician-popup">No result found for this subscription</div>
                 </div>
             )
         }
 
         return (
-            <div>
+            <div className="popup-holder">
                 <div className="politician-popup">
                   <div className="pol-title clearfix">
                       <div className="name">{ this.state.response.latest_member.name.first } { this.state.response.latest_member.name.last }</div>
                       <div className={"party " + this.state.classType}>{ this.state.response.latest_member.party }</div>
                   </div>
                   <div className="pol-info clearfix">
-                    <div className="pop-image" style={{backgroundImage: "url(../img/photos/" + this.state.response.id + ".jpg)"}}>
-                        <div className="overlay">
-                            <div className="house">{ this.state.response.latest_member.house }</div>
-                            <div className="positions">{ this.state.offices }</div>
+                    <div className="pop-image-holder">
+                        <div className="pop-image-bg" style={{backgroundImage: "url(../img/photos/" + this.state.response.id + ".jpg)"}}>
+                        </div>
+                        <div className="bg-overlay"></div>
+                        <div className="pop-image" style={{backgroundImage: "url(../img/photos/" + this.state.response.id + ".jpg)"}}>
+                            <div className="overlay">
+                                <div className="house">{ this.state.response.latest_member.house }</div>
+                                <div className="positions">{ this.state.offices }</div>
+                            </div>
                         </div>
                     </div>
                     <div className="pop-content">

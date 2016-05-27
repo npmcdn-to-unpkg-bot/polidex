@@ -16,11 +16,12 @@
 .banner .overlay {
     padding: 90px 1.5% 10px 1.5%;
     background-color: rgba(11, 60, 82, 0.75);
-
+    /*
     @supports (display: flex) {
       display: flex;
       flex-wrap: wrap;
     }
+    */
 }
 
 .banner .title {
@@ -37,12 +38,13 @@
     position: relative;
     float: left;
     width: 100%;
-
+    /*
     @supports (display: flex) {
       float: none;
       display: flex;
       flex-wrap: wrap;
     }
+    */
 }
 
 .banner .field.search-field {
@@ -50,10 +52,11 @@
     float: left;
     width: 31.333%;
     margin: 0 1% 30px 1%;
-
+    /*
     @supports (display: flex) {
       float: none;
     }
+    */
 }
 
 .banner .field.search-field:before {
@@ -73,9 +76,10 @@
     box-shadow: none;
     @include font-size(18);
     @include line-height(20);
-    @include padding-all(14,18,14,58);
+    @include padding-all(12,16,12,56);
     border-radius: 24px;
     width: 100%;
+    border: 2px solid #FFFFFF;
 
     &::-webkit-input-placeholder {
         color: #304A5D;
@@ -96,7 +100,11 @@
 
 .banner input.search:focus {
     outline: none;
-    box-shadow: 0px 0px 5px #0493D8;
+
+    &:focus {
+        border-color: #7ECDF3;
+        box-shadow: 0px 0px 5px rgba(#0493D8,0.5);
+    }
 }
 
 /* Sort By */
@@ -104,27 +112,42 @@
     float: left;
     width: 31.333%;
     margin: 0 1% 30px 1%;
-
+    /*
     @supports (display: flex) {
       float: none;
     }
+    */
 }
 
 .sort-by select {
-  width: 100%;
-  border: none;
-  @include padding-all(14,18,14,18);
-  border-radius: 24px;
-  background: #FFFFFF;
-  color: #10293b;
-  @include font-size(18);
-  @include line-height(20);
-  height: 48px;
-}
+    width: 100%;
+    border: none;
+    @include padding-all(10,16,14,16);
+    border-radius: 24px;
+    background: #FFFFFF;
+    color: #10293b;
+    @include font-size(18);
+    @include line-height(20);
+    height: 48px;
+    border: 2px solid #FFFFFF;
 
-.sort-by select:focus {
-    outline: none;
-    box-shadow: 0px 0px 5px #0493D8;
+    background: #edf0f2;
+    background: -moz-linear-gradient(top, #edf0f2 0%, #eaedef 50%, #e1e5e8 51%, #dadee1 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #edf0f2), color-stop(50%, #eaedef), color-stop(51%, #e1e5e8), color-stop(100%, #dadee1));
+    background: -webkit-linear-gradient(top, #edf0f2 0%, #eaedef 50%, #e1e5e8 51%, #dadee1 100%);
+    background: -o-linear-gradient(top, #edf0f2 0%, #eaedef 50%, #e1e5e8 51%, #dadee1 100%);
+    background: -ms-linear-gradient(top, #edf0f2 0%, #eaedef 50%, #e1e5e8 51%, #dadee1 100%);
+    background: linear-gradient(to bottom, #edf0f2 0%, #eaedef 50%, #e1e5e8 51%, #dadee1 100%);
+
+    &:hover {
+        background: #f1f3f5;
+    }
+
+    &:focus {
+        outline: none;
+        border-color: #7ECDF3;
+        box-shadow: 0px 0px 5px rgba(#0493D8,0.5);
+    }
 }
 
 /* */
@@ -152,12 +175,13 @@
 /* Politicians Listed */
 .listed-politicians {
     padding: 1%;
-
+    /*
     @supports (display: flex) {
       display: flex;
       flex-wrap: wrap;
       justify-content: flex-start;
     }
+    */
 }
 
 .listed-politicians li {
@@ -165,11 +189,11 @@
     margin: 1%;
     cursor: pointer;
     float: left;
-
+    /*
     @supports (display: flex) {
       float: none;
     }
-
+    */
     @media screen and (max-width: 100em) {
       width: 12.2867%;
     }
@@ -190,13 +214,17 @@
       width: 31.3333%;
     }
 
-    @media screen and (max-width: 28em) {
+    @media screen and (max-width: 20em) {
       width: 48%;
     }
 
     @media screen and (max-width: 16em) {
       width: 98%;
     }
+}
+
+.listed-politicians li.noresults {
+    width: 98%;
 }
 
 .listed-politicians li:hover .pol-image {
@@ -251,6 +279,26 @@
     border-top: 2px solid $nats-colour;
 }
 
+.listed-politicians .country .description {
+    border-top: 2px solid $country-colour;
+}
+
+.listed-politicians .familyfirst .description {
+    border-top: 2px solid $familyfirst-colour;
+}
+
+.listed-politicians .cwm .description {
+    border-top: 2px solid $cwm-colour;
+}
+
+.listed-politicians .motoring .description {
+    border-top: 2px solid $motoring-colour;
+}
+
+.listed-politicians .libnat .description {
+    border-top: 2px solid $libnat-colour;
+}
+
 .listed-politicians .other .description {
     border-top: 2px solid $other-colour;
 }
@@ -303,13 +351,37 @@
     width: 100%;
     background-color: rgba(11, 60, 82, 0.92);
     z-index: 3;
-    padding: 7px 0;
+    padding: 1%;
   }
   .banner .field.search-field,
   .sort-by {
-    margin: 7px 1% 7px 1%;
+    margin: 1%;
   }
   .banner .overlay {
     padding: 80px 1.5% 0px 1.5%;
   }
+}
+@media screen and (max-width: 600px) {
+    .banner .overlay {
+        padding-top: 70px;
+    }
+    .banner .title {
+        @include font-size(20);
+        @include line-height(26);
+        margin-bottom: 20px;
+    }
+    .banner .field.search-field:before {
+        left: 16px;
+    }
+    .banner input.search {
+        @include font-size(16);
+        @include line-height(16);
+        @include padding-all(10,14,10,46);
+    }
+    .sort-by select {
+        @include font-size(16);
+        @include line-height(16);
+        @include padding-all(8,14,12,14);
+        height: 40px;
+    }
 }

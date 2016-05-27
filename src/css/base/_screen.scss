@@ -127,6 +127,16 @@ svg {
 	vertical-align: -8%;
 }
 
+/* Message */
+.message {
+	text-align: center;
+	background: #CDDCEC;
+	border: 1px solid #90ACCA;
+	border-radius: 5px;
+	@include font-size(20);
+	@include padding(20);
+}
+
 /* Box Sizing */
 * {
 	-moz-box-sizing: border-box;

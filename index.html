@@ -36,7 +36,7 @@
 <div class="main" id="page">
 		<div class="page-loading">
 				<div class="loading">
-						<p>Loading...</p>
+						<img src="img/loadinglogo-small.gif" alt="Loading" />
 						<div class="spin"></div>
 				</div>
 		</div>
@@ -44,54 +44,73 @@
 <!-- End Main -->
 
 <style>
+body {
+	padding: 0;
+	margin: 0;
+}
+.page-loading {
+	height: 100vh;
+	background: #eaebec;
+}
 .page-loading .loading {
-  width: 125px;
-  height: 118px;
-  position: absolute;
+	width: 206px;
+	height: 200px;
+	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin-top: -59px;
-	margin-left: -62.5px;
+	margin-top: -100px;
+	margin-left: -103px;
+}
+.page-loading img {
+	display: block;
+	position: absolute;
+	top: 56%;
+	left: 50%;
+	margin-top: -40px;
+	margin-left: -40px;
+	width: 80px;
+	height: 80px;
 }
 
 .page-loading p {
-  position: absolute;
-  top: 60%;
+	position: absolute;
+	top: 60%;
 	margin: 0;
 	font-family: sans-serif;
-  margin-top: -8px;
-  text-align: center;
-  z-index: 99;
-  color: #000000;
-  font-size: 12px;
-  line-height: 16px;
-  width: 100%;
-  overflow: hidden;
-  animation: dots 2s steps(2) linear infinite;
-  color: gray;
+	margin-top: -8px;
+	text-align: center;
+	z-index: 99;
+	color: #000000;
+	font-size: 12px;
+	line-height: 16px;
+	width: 100%;
+	overflow: hidden;
+	animation: dots 2s steps(2) linear infinite;
+	color: gray;
 }
 
 .page-loading .spin {
-  height: 100%;
-  margin: 10% auto;
-  border-right: 5px solid #D20000;
-  border-bottom: 5px solid transparent;
-  border-radius: 100%;
-  animation: spin 0.9s linear infinite;
+	opacity: 0.25;
+	height: 100%;
+	margin: 10% auto;
+	border-right: 5px solid #0493D8;
+	border-bottom: 5px solid transparent;
+	border-radius: 100%;
+	animation: spin 0.9s linear infinite;
 }
 
 @keyframes spin {
   0% {
     transform: rotate(0deg);
-    border-right-color: #D22020;
+    border-right-color: #0493D8;
   }
   50% {
     transform: rotate(180deg);
-    border-right-color: #A27AD7;
+    border-right-color: #10293b;
   }
   100% {
     transform: rotate(360deg);
-    border-right-color: #D22020;
+    border-right-color: #0493D8;
   }
 }
 </style>
@@ -106,8 +125,16 @@
 <!-- Menu -->
 <script src="bower_components/pushy/js/pushy.min.js" charset="utf-8"></script>
 
-<!-- Click politician and open popup
-<script src="js/components/politician-popups.js" type="text/javascript"></script> -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78411420-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
 </body>
 
