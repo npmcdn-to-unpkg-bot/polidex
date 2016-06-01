@@ -43,7 +43,9 @@ class PoliticianPopup extends React.Component {
                 success: function(data){
                     // Positions
                     var offices = '';
+                    var officeClass = 'no';
                     if (data.offices.length > 0) {
+                        officeClass = 'yes';
                         for (var i = 0; i < data.offices.length; ++i) {
                             offices += data.offices[i].position;
                             if (i !== data.offices.length - 1) {
@@ -92,7 +94,8 @@ class PoliticianPopup extends React.Component {
                         classType: classType,
                         voteHistory: voteHistory,
                         voteHistoryFiltered: voteHistory,
-                        offices: offices
+                        offices: offices,
+                        officeClass: officeClass
                     });
                 },
                 error: function(xhr, status, error) {
@@ -182,18 +185,6 @@ class PoliticianPopup extends React.Component {
 
             voteHistory.push(
               <div className={"issue clearfix " + moreThan} key={i}>
-                  {/*
-                  <div className={"progress-pie-chart " + moreThan} data-percent="0">
-                      <div className="ppc-progress">
-                          <div className="ppc-progress-fill" style={{transform: "rotate(" + deg + "deg)"}}></div>
-                      </div>
-                      <div className="ppc-percents">
-                          <div className="pcc-percents-wrapper">
-                              <span>{ data[b].agreement }%</span>
-                          </div>
-                      </div>
-                  </div>
-                  */}
                   <div className="issue-title">
                       <svg>
                         <use href={"img/sprite.svg#thumb-" + thumb} />
@@ -243,8 +234,9 @@ class PoliticianPopup extends React.Component {
             <div className="popup-holder">
                 <div className="politician-popup">
                   <div className="pol-title clearfix">
-                      <div className="name">{ this.state.response.latest_member.name.first } { this.state.response.latest_member.name.last }</div>
                       <div className={"party " + this.state.classType}>{ this.state.response.latest_member.party }</div>
+                      <div className="name">{ this.state.response.latest_member.name.first } { this.state.response.latest_member.name.last }</div>
+                      <div className="electorate">Representative for { this.state.response.latest_member.electorate }</div>
                   </div>
                   <div className="pol-info clearfix">
                     <div className="pop-image-holder">
@@ -253,7 +245,6 @@ class PoliticianPopup extends React.Component {
                         <div className="bg-overlay"></div>
                         <div className="pop-image" style={{backgroundImage: "url(../img/photos/" + this.state.response.id + ".jpg)"}}>
                             <div className="overlay">
-                                <div className="house">{ this.state.response.latest_member.house }</div>
                                 <div className="positions">{ this.state.offices }</div>
                             </div>
                         </div>
@@ -266,19 +257,11 @@ class PoliticianPopup extends React.Component {
                         </div>
                         { this.state.voteHistoryFiltered }
                       </div>
-                      {/*
-                        <div className="map-area">
-                            <div className="house">
-                              <PopupMap
-                                mapArea={ this.state.response.latest_member.house }
-                              />
-                            </div>
-                            <div className="electorate">
-                              { this.state.response.latest_member.electorate }
-                            </div>
-                        </div>
-                      */}
                     </div>
+                    <PopupMap
+                      mapArea={ this.state.response.latest_member.house }
+                      polId={ this.props.politicianId }
+                    />
                   </div>
                 </div>
             </div>
