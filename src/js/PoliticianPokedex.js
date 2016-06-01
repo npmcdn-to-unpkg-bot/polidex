@@ -10,7 +10,7 @@ const customStyles = {
         left              : 0,
         right             : 0,
         bottom            : 0,
-        backgroundColor   : 'rgba(16, 41, 59, 0.5)',
+        backgroundColor   : 'rgba(0, 0, 0, 0.5)',
         zIndex            : 3,
         overflowY         : 'auto'
     },
@@ -27,7 +27,8 @@ const customStyles = {
         marginRight           : '0',
         transform             : 'none',
         border                : 'none',
-        padding               : '0'
+        padding               : '0',
+        pointerEvents         : 'none'
     }
 };
 
@@ -90,6 +91,12 @@ class PoliticianPokedex extends React.Component {
         this.setState({
             modalIsOpen: false
         });
+    }
+
+    figureClose(e) {
+        console.log(e);
+        console.log(e.target);
+        console.log(e.currentTarget);
     }
 
     componentDidMount () {

@@ -8,15 +8,18 @@
     margin: 40px 20px 40px 20px;
     display: table-cell;
     vertical-align: middle;
+    pointer-events: none;
+
+    & > * { pointer-events: all; }
 }
 
 /* Loading */
 .loading-popup {
-    max-width: 800px;
     background: #eaebec;
     padding: 80px 0;
     border-radius: 5px;
     margin: 0 auto;
+    pointer-events: all;
 
     .loading {
         margin: 0 auto;
@@ -24,23 +27,6 @@
         height: 200px;
         position: relative;
     }
-
-  &:after {
-      content: '';
-      background: url(../../img/loadinglogo-small.gif);
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: auto;
-
-      display: block;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin-top: -40px;
-      margin-left: -40px;
-      width: 80px;
-      height: 80px;
-  }
 
   p {
     position: absolute;
@@ -86,16 +72,25 @@
 /* Popup */
 .politician-popup {
     position: relative;
-    max-width: 800px;
     margin: 0 auto;
+    pointer-events: all;
 }
 
 .pol-info {
     position: relative;
-    padding-left: 240px;
-    height: 320px;
+    padding-left: 288px;
+    padding-right: 288px;
+    height: 384px;
     border-radius: 0 0 5px 5px;
     overflow: hidden;
+}
+
+@media screen and (max-width: 1400px) {
+  .pol-info {
+      padding-left: 240px;
+      padding-right: 240px;
+      height: 320px;
+  }
 }
 
 .politician-popup .pol-title {
@@ -110,6 +105,12 @@
    @include line-height(28);
    font-weight: bold;
    color: #10293b;
+}
+.politician-popup .electorate {
+   @include font-size(16);
+   @include line-height(20);
+   color: #597C95;
+   text-transform: uppercase;
    float: left;
 }
 .politician-popup .party {
@@ -151,13 +152,20 @@
 }
 
 .politician-popup .pop-image {
-    width: 240px;
-    height: 320px;
+    width: 288px;
+    height: 384px;
     background-position: center;
     background-size: cover;
     position: absolute;
     top: 0;
     left: 0;
+}
+
+@media screen and (max-width: 1400px) {
+    .politician-popup .pop-image {
+        width: 240px;
+        height: 320px;
+    }
 }
 
 .politician-popup .pop-image .overlay {
@@ -170,15 +178,8 @@
 
   .positions {
     color: #FFFFFF;
-    @include font-size(18);
-    @include line-height(24);
-  }
-  .house {
-    color: #FFFFFF;
-    @include font-size(12);
-    font-weight: bold;
-    text-transform: uppercase;
-    @include margin-all(0,0,6,0);
+    @include font-size(16);
+    @include line-height(20);
   }
 }
 
@@ -191,9 +192,15 @@
 }
 
 .vote-history {
-  height: 320px;
+  height: 384px;
   overflow-y: scroll;
   background: #e8ebed;
+}
+
+@media screen and (max-width: 1400px) {
+    .vote-history {
+        height: 320px;
+    }
 }
 
 .vote-history::-webkit-scrollbar {
@@ -207,6 +214,7 @@
 .vote-history::-webkit-scrollbar-thumb {
 	background-color: #386585;
 	border: none;
+  border-radius: 5px;
 }
 
 .vote-history .put {
@@ -313,76 +321,94 @@
     padding: 8px 10px 8px 10px;
     border: 1px solid #A4B2BC;
     width: 100%;
+    border-radius: 5px;
 }
 
-/* Circle */
-@mixin circle($size) {
-  content: "";
+/* Map */
+.popup-map {
+  width: 288px;
+  height: 384px;
+  background-position: center;
+  background-size: cover;
   position: absolute;
-  border-radius: 50%;
-  left: calc(50% - #{$size/2});
-  top: calc(50% - #{$size/2});
-  width: $size;
-  height: $size;
-}
+  top: 0;
+  right: 0;
 
-$size: 76px;
-
-.progress-pie-chart {
-  float: right;
-  margin: 0 0 20px 20px;
-  width: $size;
-  height: $size;
-  border-radius: 50%;
-  background-color: rgba(0,0,0,0.15);
-  position: relative;
-}
-.ppc-progress {
-  @include circle($size);
-  clip: rect(0, $size, $size, #{$size/2});
-  .ppc-progress-fill {
-    @include circle($size);
-    clip: rect(0, #{$size/2}, $size, 0);
-    background: #FFFFFF;
-    transform: rotate(0deg);
-		transition: all 1000ms ease;
+  .house {
+    background-color: rgba(11, 60, 82, 0.85);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
-}
-.ppc-percents {
-  @include circle(#{$size/1.15});
-  background: #fff;
-  text-align: center;
-  display: table;
-  span {
+
+  svg {
     display: block;
-    @include font-size(16);
-    font-weight: bold;
-    color: #FFFFFF;
+    width: 288px;
+    height: 304px;
+    margin: 60px auto 20px auto;
   }
-}
-.pcc-percents-wrapper {
-  display: table-cell;
-  vertical-align: middle;
-}
 
-.progress-pie-chart.for {
-  background: #FFFFFF;
+  .house-title {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #597C95;
+    @include font-size(14);
+    @include line-height(20);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
-  & {
-  clip: rect(0, #{$size/2}, $size, 0);
-
-    .ppc-progress-fill {
-      clip: rect(0, $size, $size, #{$size/2});
-      background: #2BAA4B;
+    span {
+      display: block;
+      font-family: 'Lyon Display';
+      @include font-size(16);
+      @include line-height(20);
+      color: #FFFFFF;
     }
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1400px) {
+    .popup-map {
+      width: 240px;
+      height: 320px;
+
+      svg {
+        width: 200px;
+        height: 240px;
+      }
+    }
+}
+
+
+@media screen and (max-width: 920px) {
+    .pol-info {
+        padding: 320px 0 0 0;
+        height: auto;
+    }
+    .popup-map {
+        width: 50%;
+    }
     .pop-image-holder {
-        overflow: hidden;
-        position: relative;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50%;
+        height: 320px;
         background-color: #FFFFFF;
+    }
+    .pop-image-holder .bg-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.75);
     }
     .pop-image-holder .pop-image-bg {
         background-size: cover;
@@ -394,18 +420,18 @@ $size: 76px;
         height: 100%;
         filter: blur(5px);
     }
-    .pop-image-holder .bg-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0,0,0,0.5);
-    }
-    .pop-image {
+    .politician-popup .pop-image {
         position: relative;
         z-index: 2;
         margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .pop-image-holder {
+        overflow: hidden;
+        position: relative;
+        width: 100%;
     }
   .politician-popup .pol-title {
     text-align: center;
@@ -418,9 +444,12 @@ $size: 76px;
       overflow: auto;
   }
   .politician-popup .party {
+    @include font-size(12);
+    @include line-height(20);
+    @include padding-all(0,8,0,8);
     float: none;
     display: inline-block;
-    margin: 6px 0 0 0;
+    margin: 0 0 8px 0;
   }
   .pol-info {
     padding: 0;
@@ -428,5 +457,18 @@ $size: 76px;
   }
   .politician-popup .pop-image {
     position: relative;
+  }
+  .popup-map {
+    position: relative;
+    width: 100%;
+  }
+  .popup-map .house {
+    padding: 60px 0 20px 0;
+  }
+  .popup-map svg {
+    margin: 0 auto;
+  }
+  .politician-popup .electorate {
+    float: none;
   }
 }
