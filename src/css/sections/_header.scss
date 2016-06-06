@@ -71,3 +71,28 @@ header .open-menu:focus {
 header .open-menu:focus span {
     background-color: #0493D8;
 }
+
+/* NAv */
+header nav {
+  float: right;
+
+}
+
+header nav li {
+  float: left;
+  @include margin-all(0,12,0,0);
+}
+
+header nav li a {
+  line-height: 30px;
+  color: #FFFFFF;
+  display: inline-block;
+  @include padding-all(0,12,0,12);
+  border-radius: 15px;
+}
+
+header nav li a.active,
+header nav li a:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.1);
+}

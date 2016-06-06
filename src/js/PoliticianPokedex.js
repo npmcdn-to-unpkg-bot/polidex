@@ -172,6 +172,7 @@ class PoliticianPokedex extends React.Component {
     }
 
     componentWillUnmount () {
+        // This needs to be updated or removed I think
         this.serverRequest.abort();
     }
 
