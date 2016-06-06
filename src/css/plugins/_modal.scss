@@ -18,6 +18,7 @@
     text-align: left;
     cursor: pointer;
     outline: none;
+    pointer-events: all;
 }
 
 .ReactModal__Content button.close:hover {

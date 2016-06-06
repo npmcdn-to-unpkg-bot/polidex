@@ -9,7 +9,7 @@ const customStyles = {
         left              : 0,
         right             : 0,
         bottom            : 0,
-        backgroundColor   : 'rgba(16, 41, 59, 0.5)',
+        backgroundColor   : 'rgba(0, 0, 0, 0.5)',
         zIndex            : 3,
         overflowY         : 'auto'
     },
@@ -26,7 +26,8 @@ const customStyles = {
         marginRight           : '0',
         transform             : 'none',
         border                : 'none',
-        padding               : '0'
+        padding               : '0',
+        pointerEvents         : 'none'
     }
 };
 
@@ -63,9 +64,9 @@ export default class OffCanvas extends React.Component {
         return (
           <div className="basic-content">
             <h1>About &amp; History</h1>
-            <p>Quickly sort through Australia’s federal parliamentarians, and find out where they sit on this issues that matter to you.</p>
+            <p>Quickly sort through Australia’s federal parliamentarians, and find out where they sit on the issues that matter to you.</p>
             <h2>How did it start?</h2>
-            <p>Polidex started as a project at <a href="http://www.hackagong.com/" title="Hackagong Website">Hackagong</a> 2016, a great hackathon event put on in Wollongong.</p>
+            <p>Polidex started as a project at <a href="http://www.hackagong.com/" title="Hackagong Website">Hackagong</a> 2015, a hackathon organised in Wollongong.</p>
             <h2>Who Built This?</h2>
             <p>The site was designed and developed by <a href="http://brettsnaidero.com" title="Brett's Website">Brett Snaidero</a>, Vanessa Dwyer, and Marc Bowditch. Thanks also to Guy Watson, Michael Caruana, and Jason Zhang for their help with some of the tricky bits.</p>
             <h2>How Was It Built?</h2>
@@ -80,7 +81,7 @@ export default class OffCanvas extends React.Component {
             <h1>Credits</h1>
             <p>We took inspiration from the fantastic site <a href="https://web.archive.org/web/20141015082555/http://you-know-nothing.com/">You Know Nothing</a>, by Pierre Georges.</p>
             <h2>Politician Data: They Vote For You</h2>
-            <p><img src="img/content/theyvoteforyou-logo.png" />Most of the political data is pulled from <a href="https://theyvoteforyou.org.au/" title="They Vote For You Website">They Vote For You</a>, for public data source generously made available by the OpenAustralia Foundation.</p>
+            <p><img src="img/content/theyvoteforyou-logo.png" />Most of the political data is pulled from <a href="https://theyvoteforyou.org.au/" title="They Vote For You Website">They Vote For You</a>, a public data source generously made available by the OpenAustralia Foundation.</p>
         </div>
         )
       }

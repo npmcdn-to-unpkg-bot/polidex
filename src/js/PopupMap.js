@@ -5,21 +5,31 @@ import PopupSenate from './mapviews/popup-senate';
 
 // Create class called WelcomeScreen that extends the base React Component class
 class PopupMap extends React.Component {
+    componentDidMount() {
+        console.log( this.props.polId );
+    }
+
     render(props) {
         if ( this.props.mapArea == 'representatives' ) {
           return (
-            <div>
-                <div>In the <span>House Of Representatives</span></div>
-                <PopupRepresentatives
-                />
+            <div className="popup-map" style={{ backgroundImage: 'url(img/content/houseofreps-big.jpg)' }}>
+                <div className="house">
+                    <div className="house-title">Votes in the <span>House Of Representatives</span></div>
+                    <PopupRepresentatives
+                      polId={ this.props.polId }
+                    />
+                </div>
             </div>
           )
         } else if ( this.props.mapArea == 'senate' ) {
           return (
-            <div>
-                <div>In the <span>Senate</span></div>
-                <PopupSenate
-                />
+            <div className="popup-map" style={{ backgroundImage: 'url(img/content/senate-big.jpg)' }}>
+                <div className="house">
+                  <div className="house-title">Votes in the <span>Senate</span></div>
+                  <PopupSenate
+                    polId={ this.props.polId }
+                  />
+              </div>
             </div>
           )
         } else {
@@ -31,7 +41,8 @@ class PopupMap extends React.Component {
 }
 
 PopupMap.propTypes = {
-    mapArea: React.PropTypes.string
+    mapArea: React.PropTypes.string,
+    polId: React.PropTypes.string
 };
 
 PopupMap.defaultProps = {

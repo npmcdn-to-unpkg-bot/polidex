@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from '../../node_modules/react-router/lib/index';
 
 export default class Header extends React.Component {
     constructor() {
@@ -14,6 +15,14 @@ export default class Header extends React.Component {
               <span></span>
               <span></span>
             </button>
+
+            {/* Nav */}
+            <nav>
+              <ul>
+                <li><Link to="/">Politicians</Link></li>
+                <li><Link to="/map">Map</Link></li>
+              </ul>
+            </nav>
 
             <a className="logo" href="index.html" title="Polidex">
               <svg viewBox="0 0 32.8 32">
