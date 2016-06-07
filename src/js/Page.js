@@ -1,5 +1,4 @@
 import React from 'react';
-import WelcomeScreen from './WelcomeScreen';
 import PoliticianPokedex from './PoliticianPokedex';
 import Header from './Header';
 import OffCanvas from './OffCanvas';
@@ -22,13 +21,8 @@ export default class Page extends React.Component {
                 <Header />
 
                 <div className="page-main" id="page-main">
-                  <PoliticianPokedex />
+                    <PoliticianPokedex />
                 </div>
-                {/*
-                  <div className="page-left" id="page-left">
-                    <WelcomeScreen />
-                  </div>
-                */}
 
               </div>
             </div>

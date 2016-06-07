@@ -19,8 +19,8 @@ export default class Header extends React.Component {
             {/* Nav */}
             <nav>
               <ul>
-                <li><Link to="/">Politicians</Link></li>
-                <li><Link to="/map">Map</Link></li>
+                <li><Link to="/" activeClassName="active">Politicians</Link></li>
+                <li><Link to="/map" activeClassName="active">Map</Link></li>
               </ul>
             </nav>
 
