@@ -43,6 +43,13 @@ module.exports = {
                     'react-hot',
                     'babel?presets[]=stage-0,presets[]=react,presets[]=es2015'
                 ]
+            },
+            {
+                test: /\.json$/,
+                exclude: /(node_modules|bower_components)/,
+                loaders: [
+                    'json'
+                ]
             }
         ]
     }
