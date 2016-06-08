@@ -1,3 +1,6 @@
+var webpack = require('webpack');
+var path = require('path');
+
 module.exports = {
     entry: getEntrySources(['./src/js/entry.js']),
     output: {
@@ -16,6 +19,22 @@ module.exports = {
         ],
         loaders: [
             {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel',
+                query: {
+                    plugins: [
+                        ['react-transform', {
+                            transforms: [{
+                                transform: 'react-transform-hmr',
+                                imports: ['react'],
+                                locals: ['module']
+                            }]
+                        }]
+                    ]
+                }
+            },
+            {
                 test: /\.scss$/,
                 include: /src/,
                 loaders: [
@@ -33,8 +52,8 @@ module.exports = {
                 ]
             },
             {
-              test: /\.(woff|woff2|eot|ttf)$/i,
-              loader: 'url-loader?limit=100000'
+                test: /\.(woff|woff2|eot|ttf)$/i,
+                loader: 'url-loader?limit=100000'
             },
             {
                 test: /\.jsx?$/,
@@ -46,9 +65,8 @@ module.exports = {
             },
             {
                 test: /\.json$/,
-                exclude: /(node_modules|bower_components)/,
                 loaders: [
-                    'json'
+                    'json-loader'
                 ]
             }
         ]
