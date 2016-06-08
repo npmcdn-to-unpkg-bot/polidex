@@ -3,26 +3,50 @@ import PoliticianPokedex from './PoliticianPokedex';
 import Header from './Header';
 import OffCanvas from './OffCanvas';
 
-// import assign from 'object-assign';
-// import r from 'r-dom';
-// import Immutable from 'immutable';
-// import alphaify from 'alphaify';
+import { render } from 'react-dom';
+import {
+    Circle,
+    CircleMarker,
+    Map,
+    Marker,
+    MultiPolygon,
+    MultiPolyline,
+    Polygon,
+    Polyline,
+    Popup,
+    Rectangle,
+    TileLayer,
+    GeoJson
+} from 'react-leaflet';
 
-import { MapGL } from '../../node_modules/react-map-gl/dist/index';
-// import { ScatterplotOverlay } from '../../node_modules/react-map-gl/src/overlays/scatterplot.react';
-// import SVGOverlay from '../../node_modules/react-map-gl/src/overlays/svg.react';
+import mygeojson from './mapdata/electorates.json';
+const center = [-27.24, 133.7751];
 
-
+const map = (
+    <Map center={center} zoom={5} animate={true}>
+        <TileLayer
+        url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        />
+        <Marker position={center}>
+            <Popup>
+                <span>A pretty CSS3 popup.<br/>Easily customizable.</span>
+            </Popup>
+        </Marker>
+        <Circle center={center} fillColor='blue' radius={200} />
+    </Map>
+);
 
 export default class AusMap extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
     }
 
     componentDidMount() {
     }
 
     render(props) {
+
         return (
           <div>
             <OffCanvas />
@@ -37,14 +61,7 @@ export default class AusMap extends React.Component {
                 <div className="page-main" id="page-main">
                     <div className="map-main">
 
-                        <MapGL
-                          width={700}
-                          height={450}
-                          latitude={37.78}
-                          longitude={-122.45}
-                          zoom={11}
-                          mapStyle={mapStyle}
-                        />
+                    { map }
 
                     </div>
                     <div className="map-side">
