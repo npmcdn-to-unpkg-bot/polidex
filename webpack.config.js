@@ -19,22 +19,6 @@ module.exports = {
         ],
         loaders: [
             {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel',
-                query: {
-                    plugins: [
-                        ['react-transform', {
-                            transforms: [{
-                                transform: 'react-transform-hmr',
-                                imports: ['react'],
-                                locals: ['module']
-                            }]
-                        }]
-                    ]
-                }
-            },
-            {
                 test: /\.scss$/,
                 include: /src/,
                 loaders: [

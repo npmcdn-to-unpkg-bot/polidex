@@ -1,6 +1,6 @@
 .map-main {
     width: 75%;
-    background-color: #FFFFFF;
+    background-color: #DCDCDC;
     height: 100vh;
     float: left;
 }
@@ -10,4 +10,92 @@
     background-color: #FFFFFF;
     height: 100vh;
     float: left;
+}
+
+/* Search */
+.above-listing {
+    padding: 20px;
+    background-color: #000000;
+}
+.map-search {
+    position: relative;
+}
+
+.map-search input {
+    border: none;
+    background: #FFFFFF;
+    color: #304A5D;
+    box-shadow: none;
+    @include font-size(18);
+    @include line-height(20);
+    @include padding-all(12,16,12,56);
+    border-radius: 24px;
+    width: 100%;
+    border: 2px solid #FFFFFF;
+
+    &::-webkit-input-placeholder {
+        color: #304A5D;
+    }
+
+    &:-moz-placeholder { /* Firefox 18- */
+        color: #304A5D;
+    }
+
+    &::-moz-placeholder {  /* Firefox 19+ */
+        color: #304A5D;
+    }
+
+    &:-ms-input-placeholder {
+        color: #304A5D;
+    }
+}
+
+.map-search input:focus {
+    outline: none;
+
+    &:focus {
+        border-color: #7ECDF3;
+        box-shadow: 0px 0px 5px rgba(#0493D8,0.5);
+    }
+}
+
+.map-search:before {
+    content: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDIwIDIwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4uc3Qwe2ZpbGw6IzA0OTNEODt9PC9zdHlsZT48cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTkuNiwxNy41TDE2LjEsMTRjMS0xLjUsMS42LTMuMiwxLjYtNS4xYzAtNC45LTQtOC45LTguOS04LjlTMCw0LDAsOC45czQsOC45LDguOSw4LjljMS45LDAsMy43LTAuNiw1LjItMS43bDMuNSwzLjVjMC4zLDAuMywwLjcsMC40LDEsMC40YzAuNCwwLDAuNy0wLjEsMS0wLjRDMjAuMSwxOSwyMC4xLDE4LjEsMTkuNiwxNy41eiBNOC45LDE0LjhjLTMuMywwLTUuOS0yLjctNS45LTUuOXMyLjctNS45LDUuOS01LjlzNS45LDIuNyw1LjksNS45YzAsMS4xLTAuMywyLjEtMC44LDNjLTAuNSwwLjgtMS4yLDEuNi0yLjEsMi4xQzExLDE0LjUsMTAsMTQuOCw4LjksMTQuOHoiLz48L3N2Zz4=);
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 20px;
+    margin-top: -10px;
+}
+
+/* Politicians in sidebar */
+.current-electorates {
+
+}
+
+.current-electorates li {
+    padding: 20px 20px 20px 120px;
+    min-height: 160px;
+    position: relative;
+}
+
+.current-electorates li:nth-child(2n) {
+    background-color: #EFEFEF;
+}
+
+.current-electorates .image {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    height: 120px;
+    width: 80px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 5px;
+}
+
+.current-electorates .electorate {
+    font-size: 1.5em;
+    font-weight: bold;
 }

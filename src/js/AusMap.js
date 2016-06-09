@@ -1,48 +1,28 @@
 import React from 'react';
-import PoliticianPokedex from './PoliticianPokedex';
 import Header from './Header';
 import OffCanvas from './OffCanvas';
-
-import { render } from 'react-dom';
-import {
-    Circle,
-    CircleMarker,
-    Map,
-    Marker,
-    MultiPolygon,
-    MultiPolyline,
-    Polygon,
-    Polyline,
-    Popup,
-    Rectangle,
-    TileLayer,
-    GeoJson
-} from 'react-leaflet';
-
-import mygeojson from './mapdata/electorates.json';
-const center = [-27.24, 133.7751];
-
-const map = (
-    <Map center={center} zoom={5} animate={true}>
-        <TileLayer
-        url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        />
-        <Marker position={center}>
-            <Popup>
-                <span>A pretty CSS3 popup.<br/>Easily customizable.</span>
-            </Popup>
-        </Marker>
-        <Circle center={center} fillColor='blue' radius={200} />
-    </Map>
-);
+import ElectorateMap from './ElectorateMap';
 
 export default class AusMap extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            markers: [{
+                position: {
+                    lat: 25.0112183,
+                    lng: 121.52067570000001,
+                },
+                key: 'Taiwan',
+                defaultAnimation: 2,
+            }]
+        };
     }
 
     componentDidMount() {
+    }
+
+    _handle_map_click(event) {
     }
 
     render(props) {
@@ -59,16 +39,10 @@ export default class AusMap extends React.Component {
                 <Header />
 
                 <div className="page-main" id="page-main">
-                    <div className="map-main">
-
-                    { map }
-
-                    </div>
-                    <div className="map-side">
-                        <div className="map-search">
-                            <input type="text" />
-                        </div>
-                    </div>
+                    <ElectorateMap
+                        markers={this.state.markers}
+                        onMapClick={::this._handle_map_click}
+                    />
                 </div>
 
               </div>
