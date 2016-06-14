@@ -23,10 +23,10 @@ const customStyles = {
         left                  : 'auto',
         right                 : 'auto',
         bottom                : 'auto',
-        marginRight           : '0',
+        marginRight           : '0px',
         transform             : 'none',
         border                : 'none',
-        padding               : '0',
+        padding               : '0px',
         pointerEvents         : 'none'
     }
 };

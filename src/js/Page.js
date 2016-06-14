@@ -19,7 +19,7 @@ export default class Page extends React.Component {
             <div className="site-overlay"></div>
 
             <div id="container">
-              <div className="app clearfix">
+              <div className="app overtop clearfix">
 
                 <Header />
 

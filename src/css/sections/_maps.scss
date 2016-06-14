@@ -2,6 +2,7 @@
     width: 75%;
     background-color: #DCDCDC;
     height: 100vh;
+    height: calc(100vh - 50px);
     float: left;
 }
 
@@ -9,13 +10,31 @@
     width: 25%;
     background-color: #FFFFFF;
     height: 100vh;
+    height: calc(100vh - 50px);
+    overflow-y: scroll;
     float: left;
+}
+
+.map-side::-webkit-scrollbar {
+  width: 10px;
+}
+
+.map-side::-webkit-scrollbar-track {
+	background: #10293b;
+}
+
+.map-side::-webkit-scrollbar-thumb {
+	background-color: #43637B;
+	border-radius: 5px;
+	border: 1px solid #10293b;
 }
 
 /* Search */
 .above-listing {
     padding: 20px;
     background-color: #000000;
+    color: #FFFFFF;
+    text-align: center;
 }
 .map-search {
     position: relative;
@@ -75,9 +94,10 @@
 }
 
 .current-electorates li {
-    padding: 20px 20px 20px 120px;
-    min-height: 160px;
+    padding: 20px 20px 20px 90px;
+    min-height: 100px;
     position: relative;
+    background-color: #FFFFFF;
 }
 
 .current-electorates li:nth-child(2n) {
@@ -88,8 +108,8 @@
     position: absolute;
     top: 20px;
     left: 20px;
-    height: 120px;
-    width: 80px;
+    height: 60px;
+    width: 50px;
     background-size: cover;
     background-position: center;
     border-radius: 5px;
