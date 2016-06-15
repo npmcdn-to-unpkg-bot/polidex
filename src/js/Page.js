@@ -1,15 +1,19 @@
 import React from 'react';
 import { Router, Route, IndexRoute, Link, hashHistory, browserHistory } from '../../node_modules/react-router/lib/index';
 
-import PoliticianPokedex from './PoliticianPokedex';
 import Header from './Header';
 import OffCanvas from './OffCanvas';
-import AusMap from './AusMap';
+
+import PoliticianPokedex from './PoliticianPokedex';
 
 export default class Page extends React.Component {
     constructor() {
         super();
     }
+
+    static propTypes = {
+        children: React.PropTypes.node
+    };
 
     render() {
         return (
@@ -24,7 +28,7 @@ export default class Page extends React.Component {
                 <Header />
 
                 <div className="page-main" id="page-main">
-                    <PoliticianPokedex />
+                    {this.props.children}
                 </div>
 
               </div>

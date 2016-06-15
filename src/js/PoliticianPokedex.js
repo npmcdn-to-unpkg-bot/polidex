@@ -167,11 +167,13 @@ class PoliticianPokedex extends React.Component {
             filteredList: politicians
           });
         }.bind(this));
+
+        // Check if there is a politician ID paramter in URL
     }
 
     componentWillUnmount () {
         // This needs to be updated or removed I think
-        this.serverRequest.abort();
+        // this.serverRequest.abort();
     }
 
     render() {

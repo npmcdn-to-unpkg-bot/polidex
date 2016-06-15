@@ -29,6 +29,7 @@ $proxy = new CrossProxy(
         'localhost:8080',
         'easypol.local',
         'polidex.local',
+        'polidex.com.au',
         '*',
         'easypol.com.au'
     )

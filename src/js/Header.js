@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '../../node_modules/react-router/lib/index';
+import { Link, IndexLink } from '../../node_modules/react-router/lib/index';
 
 export default class Header extends React.Component {
     constructor() {
@@ -19,8 +19,8 @@ export default class Header extends React.Component {
             {/* Nav */}
             <nav>
               <ul>
-                <li><Link to="/" activeClassName="active">Politicians</Link></li>
-                <li><Link to="/map" activeClassName="active">Map</Link></li>
+                <li><IndexLink to="/" activeClassName="active">Politicians</IndexLink></li>
+                <li><IndexLink to="/map" activeClassName="active">Map</IndexLink></li>
               </ul>
             </nav>
 

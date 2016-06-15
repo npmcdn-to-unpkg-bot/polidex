@@ -1,5 +1,7 @@
 import React from 'react';
+import VoteHistory from './popuptabs/VoteHistory';
 import PopupMap from './PopupMap';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import {PropTypes} from 'react';
 
 class PoliticianPopup extends React.Component {
@@ -16,6 +18,10 @@ class PoliticianPopup extends React.Component {
             classType: ''
         };
     }
+
+    handleSelect(index, last) {
+        console.log('Selected tab: ' + index + ', Last tab: ' + last);
+      }
 
     loadPoliticianData(politicianId) {
         var self = this;
@@ -56,13 +62,6 @@ class PoliticianPopup extends React.Component {
                         offices = "No position currently held";
                     }
 
-                    // Get three random votes
-                    var voteHistory = '';
-                    var voteHistory = self.createVoteHistory(
-                      data.policy_comparisons,
-                      data.id
-                    );
-
                     var classType = '';
                     switch(data.latest_member.party) {
                         case "Liberal Party":
@@ -86,14 +85,35 @@ class PoliticianPopup extends React.Component {
                         case "Palmer United Party":
                             classType = "palmer";
                         break;
+                        case "CWM":
+                            classType = "cwm";
+                        break;
+                        case "Country Liberal Party":
+                            classType = "country";
+                        break;
+                        case "Family First Party":
+                            classType = "familyfirst";
+                        break;
+                        case "Australian Motoring Enthusiast Party":
+                            classType = "motoring";
+                        break;
+                        case "Liberal National Party":
+                            classType = "libnat";
+                        break;
                         default:
                             classType ='other';
                     }
+
+                    // Get three random votes
+                    // var voteHistory = '';
+                    // var voteHistory = self.createVoteHistory(
+                    //   data.policy_comparisons,
+                    //   data.id
+                    // );
+
                     self.setState({
                         response: data,
                         classType: classType,
-                        voteHistory: voteHistory,
-                        voteHistoryFiltered: voteHistory,
                         offices: offices,
                         officeClass: officeClass
                     });
@@ -137,74 +157,7 @@ class PoliticianPopup extends React.Component {
         });
     }
 
-    createVoteHistory(data, memId) {
-        // How many votes to display
-        var value = data.length;
 
-        var voteHistory = [];
-        for (var i = 0; i < value; i++) {
-            // Get a random issue
-            var numberCrazy = Math.floor((Math.random() * 30) + 1);
-            var b = i;
-
-            var deg = 360 * data[b].agreement / 100;
-
-            var yaynay;
-            var believe;
-            var moreThan = '';
-            var thumb = '';
-
-            if(data[b].agreement >= 50) {
-                thumb = 'up';
-            } else {
-                thumb = 'down';
-            }
-
-            if(data[b].agreement >= 80) {
-              yaynay = "Strongly in favour of ";
-              believe = "believe";
-              moreThan = "strongfor";
-            } else if (data[b].agreement >= 60 && data[b].agreement < 80) {
-              yaynay = "In favour of ";
-              believe = "believe";
-              moreThan = "for";
-            } else if (data[b].agreement >= 40 && data[b].agreement < 60) {
-              yaynay = "Neutral on ";
-              believe = "neutral";
-              moreThan = "neutral";
-            } else if (data[b].agreement >= 20 && data[b].agreement < 40) {
-              yaynay = "Against ";
-              believe = "do not believe";
-              moreThan = "against";
-            } else if (data[b].agreement >= 0 && data[b].agreement < 20) {
-              yaynay = "Strongly against ";
-              believe = "do not believe";
-              moreThan = "strongagainst";
-            } else {
-            }
-
-            voteHistory.push(
-              <div className={"issue clearfix " + moreThan} key={i}>
-                  <div className="issue-title">
-                      <svg>
-                        <use href={"img/sprite.svg#thumb-" + thumb} />
-                      </svg>
-                      { yaynay }
-                      { data[b].policy.name }
-                  </div>
-                  {/*<div className="issue-description"> data[b].policy.description </div> */}
-              </div>
-            );
-        }
-
-        return (
-          <div>
-            { voteHistory }
-          </div>
-        )
-
-
-    }
 
     render(props) {
         // Handle case where the response is not here yet
@@ -225,7 +178,7 @@ class PoliticianPopup extends React.Component {
         if ( this.state.response.length === 0 ) {
             return (
                 <div className="popup-holder">
-                  <div className="politician-popup">No result found for this subscription</div>
+                  <div className="politician-popup">Sorry, no result found for this politician.</div>
                 </div>
             )
         }
@@ -249,19 +202,29 @@ class PoliticianPopup extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="pop-content">
-                      <div className="vote-history">
-                        {/* <div className="title">Voting History</div> */}
-                        <div className="search">
-                          <input onChange={ this.handleSearch.bind(this) } type="search" placeholder="Search voting history..." />
-                        </div>
-                        { this.state.voteHistoryFiltered }
-                      </div>
-                    </div>
-                    <PopupMap
-                      mapArea={ this.state.response.latest_member.house }
-                      polId={ this.props.politicianId }
-                    />
+                    <Tabs
+                        onSelect={this.handleSelect}
+                        selectedIndex={0}
+                    >
+                        <TabList>
+                            <Tab>Voting History</Tab>
+                            <Tab>What { this.state.response.latest_member.name.first } { this.state.response.latest_member.name.last } Does</Tab>
+                        </TabList>
+                        <TabPanel>
+                            <VoteHistory
+                                polId={ this.props.politicianId }
+                                response={ this.state.response }
+                                classType={ this.state.classType }
+                                voteHistory={ this.state.voteHistory }
+                            />
+                        </TabPanel>
+                        <TabPanel>
+                            <PopupMap
+                                mapArea={ this.state.response.latest_member.house }
+                                polId={ this.props.politicianId }
+                            />
+                        </TabPanel>
+                    </Tabs>
                   </div>
                 </div>
             </div>

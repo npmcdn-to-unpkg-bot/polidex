@@ -79,7 +79,6 @@
 .pol-info {
     position: relative;
     padding-left: 288px;
-    padding-right: 288px;
     height: 384px;
     border-radius: 0 0 5px 5px;
     overflow: hidden;
@@ -88,8 +87,7 @@
 @media screen and (max-width: 1400px) {
   .pol-info {
       padding-left: 240px;
-      padding-right: 240px;
-      height: 320px;
+      height: 340px;
   }
 }
 
@@ -131,7 +129,7 @@
    &.lab {
       background-color: $lab-colour;
    }
-   &.green {
+   &.greens {
       background-color: $greens-colour;
    }
    &.libdem {
@@ -145,6 +143,21 @@
    }
    &.nats {
        background-color: $nats-colour;
+   }
+   &.country {
+       background-color: $country-colour;
+   }
+   &.familyfirst {
+       background-color: $familyfirst-colour;
+   }
+   &.cwm {
+       background-color: $cwm-colour;
+   }
+   &.motoring {
+       background-color: $motoring-colour;
+   }
+   &.libnat {
+       background-color: $libnat-colour;
    }
    &.other {
        background-color: $other-colour;
@@ -164,7 +177,7 @@
 @media screen and (max-width: 1400px) {
     .politician-popup .pop-image {
         width: 240px;
-        height: 320px;
+        height: 340px;
     }
 }
 
@@ -199,7 +212,7 @@
 
 @media screen and (max-width: 1400px) {
     .vote-history {
-        height: 320px;
+        height: 294px;
     }
 }
 
@@ -222,6 +235,8 @@
 }
 
 .vote-history .issue {
+    display: block;
+    color: #000000;
     @include font-size(16);
     @include line-height(16);
     @include padding-all(10,10,10,46);
@@ -326,27 +341,45 @@
 
 /* Map */
 .popup-map {
-  width: 288px;
-  height: 384px;
-  background-position: center;
-  background-size: cover;
-  position: absolute;
-  top: 0;
-  right: 0;
+    height: 294px;
+    position: relative;
+    background: #e8ebed;
+
+    .photo {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 50%;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .photo:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(to right, rgba(232,235,237,1) 0%,rgba(232,235,237,0.5) 100%);
+    }
 
   .house {
+    /*
     background-color: rgba(11, 60, 82, 0.85);
+    */
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
+    right: 0;
+    width: 294px;
     height: 100%;
   }
 
   svg {
     display: block;
     width: 288px;
-    height: 304px;
+    height: 224px;
     margin: 60px auto 20px auto;
   }
 
@@ -356,7 +389,7 @@
     left: 0;
     width: 100%;
     text-align: center;
-    color: #597C95;
+    color: #10293b;
     @include font-size(14);
     @include line-height(20);
     white-space: nowrap;
@@ -368,38 +401,22 @@
       font-family: 'Lyon Display';
       @include font-size(16);
       @include line-height(20);
-      color: #FFFFFF;
     }
   }
-}
-
-@media screen and (max-width: 1400px) {
-    .popup-map {
-      width: 240px;
-      height: 320px;
-
-      svg {
-        width: 200px;
-        height: 240px;
-      }
-    }
 }
 
 
 @media screen and (max-width: 920px) {
     .pol-info {
-        padding: 320px 0 0 0;
+        padding: 340px 0 0 0;
         height: auto;
-    }
-    .popup-map {
-        width: 50%;
     }
     .pop-image-holder {
         position: absolute;
         top: 0;
         left: 0;
         width: 50%;
-        height: 320px;
+        height: 340px;
         background-color: #FFFFFF;
     }
     .pop-image-holder .bg-overlay {
@@ -458,17 +475,40 @@
   .politician-popup .pop-image {
     position: relative;
   }
-  .popup-map {
-    position: relative;
-    width: 100%;
-  }
-  .popup-map .house {
-    padding: 60px 0 20px 0;
-  }
-  .popup-map svg {
-    margin: 0 auto;
-  }
   .politician-popup .electorate {
     float: none;
   }
+}
+
+
+/* React Tabs */
+.ReactTabs__TabList[role=tablist] {
+    padding: 10px 5px 0 5px;
+    background: #abb6bd;
+    border: none;
+    margin: 0;
+}
+
+.react-tabs [role=tab] {
+    padding: 10px 12px;
+    border-radius: 0;
+    border: none;
+    margin: 0 5px;
+    background: #7b8994;
+    color: #FFFFFF;
+    bottom: 0;
+    border-radius: 5px 5px 0 0;
+}
+
+.react-tabs [role=tab]:hover,
+.react-tabs [role=tab]:focus {
+    background: #0493D8;
+    color: #FFFFFF;
+}
+
+.react-tabs [role=tab][aria-selected=true] {
+    border-radius: 0;
+    background: #e8ebed;
+    color: #10293b;
+    border-radius: 5px 5px 0 0;
 }

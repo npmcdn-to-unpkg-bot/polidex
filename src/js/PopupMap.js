@@ -12,7 +12,8 @@ class PopupMap extends React.Component {
     render(props) {
         if ( this.props.mapArea == 'representatives' ) {
           return (
-            <div className="popup-map" style={{ backgroundImage: 'url(img/content/houseofreps-big.jpg)' }}>
+            <div className="popup-map">
+                <div className="photo" style={{ backgroundImage: 'url(img/content/houseofreps-big.jpg)' }}></div>
                 <div className="house">
                     <div className="house-title">Votes in the <span>House Of Representatives</span></div>
                     <PopupRepresentatives
@@ -23,7 +24,8 @@ class PopupMap extends React.Component {
           )
         } else if ( this.props.mapArea == 'senate' ) {
           return (
-            <div className="popup-map" style={{ backgroundImage: 'url(img/content/senate-big.jpg)' }}>
+            <div className="popup-map">
+                <div className="photo" style={{ backgroundImage: 'url(img/content/senate-big.jpg)' }}></div>
                 <div className="house">
                   <div className="house-title">Votes in the <span>Senate</span></div>
                   <PopupSenate
