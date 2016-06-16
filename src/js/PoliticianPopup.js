@@ -157,8 +157,6 @@ class PoliticianPopup extends React.Component {
         });
     }
 
-
-
     render(props) {
         // Handle case where the response is not here yet
         if ( !this.state.response ) {

@@ -13,7 +13,9 @@ class VoteHistory extends React.Component {
             offices: '',
             voteHistory: '',
             voteHistoryFiltered: '',
-            classType: ''
+            classType: '',
+
+            openPolicy: ''
         };
     }
 
@@ -78,7 +80,7 @@ class VoteHistory extends React.Component {
             }
 
             voteHistory.push(
-              <a onClick={this.clickIssue} data-id={data[b].policy.id} className={"issue clearfix " + moreThan} key={i} href="#">
+              <a onClick={this.clickIssue.bind(this)} data-id={data[b].policy.id} className={"issue clearfix " + moreThan} key={i} href="#">
                   <div className="issue-title">
                       <svg>
                         <use href={"img/sprite.svg#thumb-" + thumb} />
@@ -113,11 +115,9 @@ class VoteHistory extends React.Component {
     }
 
     clickIssue(e) {
-        e.preventDefault;
-        console.log(e);
+        var self = this;
+
         var policyID = e.target.getAttribute('data-id');
-        // Show issue details and comparison
-        console.log(policyID);
 
         // https://theyvoteforyou.org.au/api/v1/policies/[id].json?key=[api_key]
         $.ajax({
@@ -129,6 +129,12 @@ class VoteHistory extends React.Component {
             dataType: 'json',
             success: function(data){
                 console.log(data);
+                var openPolicy = self.createPolicy(data);
+                console.log(openPolicy);
+
+                self.setState({
+                    openPolicy: openPolicy
+                });
             },
             error: function(xhr, status, error) {
               var err = eval("(" + xhr.responseText + ")");
@@ -137,12 +143,88 @@ class VoteHistory extends React.Component {
         });
     }
 
+    createPolicy(data) {
+        var pro = [];
+        var against = [];
+        var neutral = [];
+        for(var i = 0; i < data.people_comparisons.length; i++) {
+          var agreement = parseInt(data.people_comparisons[i].agreement);
+          console.log(agreement);
+          if ( agreement > 50 ) {
+              pro.push(
+                <div
+                  className="photo"
+                  style={{
+                    backgroundImage: "url(../img/photos/" + data.people_comparisons[i].person.id + ".jpg)",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    height: "40px",
+                    width: "26px",
+                    float: "left"
+                  }}
+                  title={data.people_comparisons[i].person.latest_member.name.first + ' ' + data.people_comparisons[i].person.latest_member.name.last}
+                />
+              );
+          } else if ( agreement == 50 ) {
+              neutral.push(
+                <div
+                  className="photo"
+                  style={{
+                    backgroundImage: "url(../img/photos/" + data.people_comparisons[i].person.id + ".jpg)",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    height: "40px",
+                    width: "26px",
+                    float: "left"
+                  }}
+                  title={data.people_comparisons[i].person.latest_member.name.first + ' ' + data.people_comparisons[i].person.latest_member.name.last}
+                />
+              );
+          } else if ( agreement < 50 ) {
+              against.push(
+                <div
+                  className="photo"
+                  style={{
+                    backgroundImage: "url(../img/photos/" + data.people_comparisons[i].person.id + ".jpg)",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    height: "50px",
+                    width: "30px",
+                    float: "left"
+                  }}
+                  title={data.people_comparisons[i].person.latest_member.name.first + ' ' + data.people_comparisons[i].person.latest_member.name.last}
+                />
+              );
+          }
+        }
+
+        return (
+          <div className="policy-comparison">
+              <div className="policy-title">{ data.name }</div>
+              <div className="policy-description">{ data.description }</div>
+              <div className="for">
+                  <div>For:</div>
+                  <div>{ pro }</div>
+              </div>
+              <div className="against">
+                  <div>Against:</div>
+                  <div>{ against }</div>
+              </div>
+          </div>
+        )
+    }
+
+
+
     render(props) {
         const voteHistory = this.state.voteHistoryFiltered;
+        const openPolicy = this.state.openPolicy;
         return (
             <div className="pop-content">
               <div className="vote-history">
-                {/* <div className="title">Voting History</div> */}
+
+                { openPolicy }
+
                 <div className="search">
                   <input onChange={ this.handleSearch.bind(this) } type="search" placeholder="Search voting history..." />
                 </div>
