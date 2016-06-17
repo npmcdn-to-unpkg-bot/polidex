@@ -4,7 +4,7 @@
 }
 
 .popup-holder {
-    padding: 110px 25px;
+    padding: 110px 25px 62px 25px;
     margin: 40px 20px 40px 20px;
     display: table-cell;
     vertical-align: middle;
@@ -80,14 +80,17 @@
     position: relative;
     padding-left: 288px;
     height: 384px;
+    height: calc(100vh - 260px);
     border-radius: 0 0 5px 5px;
     overflow: hidden;
+    background: #000000;
 }
 
 @media screen and (max-width: 1400px) {
   .pol-info {
       padding-left: 240px;
       height: 340px;
+      height: calc(100vh - 260px);
   }
 }
 
@@ -206,6 +209,7 @@
 
 .vote-history {
   height: 384px;
+  height: calc(100vh - 100px);
   overflow-y: scroll;
   background: #e8ebed;
 }
@@ -213,6 +217,7 @@
 @media screen and (max-width: 1400px) {
     .vote-history {
         height: 294px;
+        height: calc(100vh - 100px);
     }
 }
 
@@ -511,4 +516,50 @@
     background: #e8ebed;
     color: #10293b;
     border-radius: 5px 5px 0 0;
+}
+
+
+/* Voting Comparison */
+.policy-comparison {
+    @include margin(10);
+    background: #FFFFFF;
+    border-radius: 5px;
+    @include padding(10);
+    border: 1px solid #abb6bd;
+}
+
+.policy-comparison .loading {
+    @include margin(10);
+}
+
+.policy-comparison .policy-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: capitalize;
+    @include margin(10);
+}
+
+.policy-comparison .policy-description {
+    @include margin(10);
+}
+
+.policy-comparison .votes {
+    @include margin(10);
+}
+
+.policy-comparison .others {
+    @include margin(10);
+}
+
+.policy-comparison .others .which {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.policy-comparison .others .person {
+    background-size: cover;
+    background-position: center;
+    height: 20px;
+    width: 20px;
+    float: left;
 }

@@ -114,11 +114,18 @@ class VoteHistory extends React.Component {
         });
     }
 
+    closePolicy() {
+        this.setState({
+            openPolicy: ''
+        });
+    }
+
     clickIssue(e) {
         var self = this;
-
-        var policyID = e.target.getAttribute('data-id');
-
+        self.setState({
+            openPolicy: 'Loading'
+        });
+        var policyID = e.currentTarget.getAttribute('data-id');
         // https://theyvoteforyou.org.au/api/v1/policies/[id].json?key=[api_key]
         $.ajax({
             type: 'GET',
@@ -128,9 +135,7 @@ class VoteHistory extends React.Component {
             },
             dataType: 'json',
             success: function(data){
-                console.log(data);
                 var openPolicy = self.createPolicy(data);
-                console.log(openPolicy);
 
                 self.setState({
                     openPolicy: openPolicy
@@ -149,18 +154,12 @@ class VoteHistory extends React.Component {
         var neutral = [];
         for(var i = 0; i < data.people_comparisons.length; i++) {
           var agreement = parseInt(data.people_comparisons[i].agreement);
-          console.log(agreement);
           if ( agreement > 50 ) {
               pro.push(
                 <div
-                  className="photo"
+                  className="person"
                   style={{
-                    backgroundImage: "url(../img/photos/" + data.people_comparisons[i].person.id + ".jpg)",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    height: "40px",
-                    width: "26px",
-                    float: "left"
+                    backgroundImage: "url(../img/photos/" + data.people_comparisons[i].person.id + ".jpg)"
                   }}
                   title={data.people_comparisons[i].person.latest_member.name.first + ' ' + data.people_comparisons[i].person.latest_member.name.last}
                 />
@@ -168,14 +167,9 @@ class VoteHistory extends React.Component {
           } else if ( agreement == 50 ) {
               neutral.push(
                 <div
-                  className="photo"
+                  className="person"
                   style={{
-                    backgroundImage: "url(../img/photos/" + data.people_comparisons[i].person.id + ".jpg)",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    height: "40px",
-                    width: "26px",
-                    float: "left"
+                    backgroundImage: "url(../img/photos/" + data.people_comparisons[i].person.id + ".jpg)"
                   }}
                   title={data.people_comparisons[i].person.latest_member.name.first + ' ' + data.people_comparisons[i].person.latest_member.name.last}
                 />
@@ -183,14 +177,9 @@ class VoteHistory extends React.Component {
           } else if ( agreement < 50 ) {
               against.push(
                 <div
-                  className="photo"
+                  className="person"
                   style={{
-                    backgroundImage: "url(../img/photos/" + data.people_comparisons[i].person.id + ".jpg)",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    height: "50px",
-                    width: "30px",
-                    float: "left"
+                    backgroundImage: "url(../img/photos/" + data.people_comparisons[i].person.id + ".jpg)"
                   }}
                   title={data.people_comparisons[i].person.latest_member.name.first + ' ' + data.people_comparisons[i].person.latest_member.name.last}
                 />
@@ -200,14 +189,21 @@ class VoteHistory extends React.Component {
 
         return (
           <div className="policy-comparison">
+            <button className="close-policy" onClick={this.closePolicy.bind(this)}>Close</button>
               <div className="policy-title">{ data.name }</div>
               <div className="policy-description">{ data.description }</div>
-              <div className="for">
-                  <div>For:</div>
+              <div clasName="votes">
+              </div>
+              <div className="others for clearfix">
+                  <div className="which">For:</div>
                   <div>{ pro }</div>
               </div>
-              <div className="against">
-                  <div>Against:</div>
+              <div className="others neutral clearfix">
+                  <div className="which">Neutral:</div>
+                  <div>{ neutral }</div>
+              </div>
+              <div className="others against clearfix">
+                  <div className="which">Against:</div>
                   <div>{ against }</div>
               </div>
           </div>

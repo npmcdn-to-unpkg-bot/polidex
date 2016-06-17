@@ -21,7 +21,7 @@ class PoliticianPopup extends React.Component {
 
     handleSelect(index, last) {
         console.log('Selected tab: ' + index + ', Last tab: ' + last);
-      }
+    }
 
     loadPoliticianData(politicianId) {
         var self = this;
