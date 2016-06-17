@@ -82,6 +82,8 @@ export default class OffCanvas extends React.Component {
             <p>We took inspiration from the fantastic site <a href="https://web.archive.org/web/20141015082555/http://you-know-nothing.com/">You Know Nothing</a>, by Pierre Georges.</p>
             <h2>Politician Data: They Vote For You</h2>
             <p><img src="img/content/theyvoteforyou-logo.png" />Most of the political data is pulled from <a href="https://theyvoteforyou.org.au/" title="They Vote For You Website">They Vote For You</a>, a public data source generously made available by the OpenAustralia Foundation.</p>
+            <h2>Australian electorate and states data</h2>
+            <p>We sourced the geospatial data from the <a href="http://www.aec.gov.au/electorates/maps.htm" title="AEC Maps">Australian Electoral Commission</a>, which makes the current federal electoral divisions available for use. Thanks also to <a href="http://www.mapshaper.org/" title="Simplify and edit GeoJSON">Map Shaper</a>, an online service I used to simplify the GeoJSON data I was working with.</p>
         </div>
         )
       }

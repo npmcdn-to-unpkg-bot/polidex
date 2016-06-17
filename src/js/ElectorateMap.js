@@ -103,12 +103,7 @@ export default class ElectorateMap extends React.Component {
       modalIsOpen: false,
       geoJson: mygeojson,
       unfilteredList: mygeojson.features,
-      filteredList: mygeojson.features,
-      geoStateBy: {
-        0: {
-          onClick: ::this.handlePolygonClick
-        }
-      },
+      filteredList: mygeojson.features
     }
 
     handleSearch(e) {
@@ -135,7 +130,7 @@ export default class ElectorateMap extends React.Component {
     }
 
     handlePolygonClick(thing) {
-        console.log('Oi click ' + thing);
+        console.log(thing);
     }
 
     openModal(e) {
@@ -159,15 +154,15 @@ export default class ElectorateMap extends React.Component {
     render() {
         const { props, state } = this;
         const { googleMapsApi, ...otherProps } = props;
-        const { geoStateBy } = state;
         const { features } = state.geoJson;
         const featuresFiltered = state.filteredList;
-        const mapFeature = features[0];
-        const mapGeometry = geometryToComponentWithLatLng(mapFeature.geometry);
-        const mapState = geoStateBy[0];
+        // const { geoStateBy } = state;
+        // const mapFeature = features[0];
+        // const mapGeometry = geometryToComponentWithLatLng(mapFeature.geometry);
+        // const mapState = geoStateBy[0];
 
         return (
-            <div>
+            <div className="header-push">
                 <div className="map-main">
                     <section>
                         <ScriptjsLoader
@@ -265,22 +260,26 @@ export default class ElectorateMap extends React.Component {
                                       const { properties } = feature;
                                       const { ElementClass, ChildElementClass, ...geometry } = geometryToComponentWithLatLng(feature.geometry);
 
-                                      const { visible, child, ...featureState } = geoStateBy[0] || {};
-
-                                      if (visible !== false) {
-                                        array.push(
-                                          <ElementClass
+                                    //   const { visible, child, ...featureState } = geoStateBy[0] || {};
+                                    //   if (visible !== false) {
+                                    //  }
+                                    //
+                                    // {child ?
+                                    //   <ChildElementClass {...child} /> : null}
+                                    array.push(
+                                        <ElementClass
                                             key={index}
                                             {...properties}
                                             {...geometry}
-                                            {...featureState}
-                                            strokeColor="#FF7800"
-                                          >
-                                          {child ?
-                                            <ChildElementClass {...child} /> : null}
-                                          </ElementClass>
-                                        );
-                                      }
+                                            strokeColor="#EFEFEF"
+                                            strokeOpacity={0.5}
+                                            strokeWeight={0.5}
+                                            fillColor="#FF0000"
+                                            fillOpacity={0.35}
+                                            onClick={() => this.handlePolygonClick(properties)}
+                                        >
+                                        </ElementClass>
+                                    );
                                       return array;
                                     }, [], this)}
                                 </GoogleMap>
