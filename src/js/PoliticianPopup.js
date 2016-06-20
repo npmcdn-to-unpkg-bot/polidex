@@ -1,6 +1,6 @@
 import React from 'react';
 import VoteHistory from './popuptabs/VoteHistory';
-import PopupMap from './PopupMap';
+import PopupMap from './popuptabs/PopupMap';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import {PropTypes} from 'react';
 
@@ -20,7 +20,7 @@ class PoliticianPopup extends React.Component {
     }
 
     handleSelect(index, last) {
-        console.log('Selected tab: ' + index + ', Last tab: ' + last);
+        // console.log('Selected tab: ' + index + ', Last tab: ' + last);
     }
 
     loadPoliticianData(politicianId) {
@@ -195,10 +195,9 @@ class PoliticianPopup extends React.Component {
                         </div>
                         <div className="bg-overlay"></div>
                         <div className="pop-image" style={{backgroundImage: "url(../img/photos/" + this.state.response.id + ".jpg)"}}>
-                            <div className="overlay">
-                                <div className="positions">{ this.state.offices }</div>
-                            </div>
+                            <div className="overlay"></div>
                         </div>
+                        <div className="positions">{ this.state.offices }</div>
                     </div>
                     <Tabs
                         onSelect={this.handleSelect}
@@ -217,6 +216,9 @@ class PoliticianPopup extends React.Component {
                             />
                         </TabPanel>
                         <TabPanel>
+                            <div>
+                                { this.state.response.latest_member.name.first } { this.state.response.latest_member.name.last } is a federal politician who sits in the { this.state.response.latest_member.house }
+                            </div>
                             <PopupMap
                                 mapArea={ this.state.response.latest_member.house }
                                 polId={ this.props.politicianId }

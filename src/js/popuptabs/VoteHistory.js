@@ -15,7 +15,8 @@ class VoteHistory extends React.Component {
             voteHistoryFiltered: '',
             classType: '',
 
-            openPolicy: ''
+            openPolicy: '',
+            isPolicyOpen: ''
         };
     }
 
@@ -88,12 +89,11 @@ class VoteHistory extends React.Component {
                       { yaynay }
                       { data[b].policy.name }
                   </div>
-                  {/*<div className="issue-description"> data[b].policy.description </div> */}
               </a>
             );
         }
         return (
-          <div>
+          <div className="votes">
             { voteHistory }
           </div>
         )
@@ -116,14 +116,22 @@ class VoteHistory extends React.Component {
 
     closePolicy() {
         this.setState({
-            openPolicy: ''
+            openPolicy: '',
+            isPolicyOpen: ''
         });
+    }
+
+    scrollToTop() {
+        $('.vote-history').animate({scrollTop:0}, '500', 'swing');
     }
 
     clickIssue(e) {
         var self = this;
+        self.scrollToTop();
+        var loading = [ <div className="policy-comparison-loading"><div className="loading"><div className="spin"></div></div></div> ];
         self.setState({
-            openPolicy: 'Loading'
+            openPolicy: loading,
+            isPolicyOpen: 'comparison-active'
         });
         var policyID = e.currentTarget.getAttribute('data-id');
         // https://theyvoteforyou.org.au/api/v1/policies/[id].json?key=[api_key]
@@ -188,7 +196,7 @@ class VoteHistory extends React.Component {
         }
 
         return (
-          <div className="policy-comparison">
+          <div className="policy-info">
             <button className="close-policy" onClick={this.closePolicy.bind(this)}>Close</button>
               <div className="policy-title">{ data.name }</div>
               <div className="policy-description">{ data.description }</div>
@@ -206,6 +214,9 @@ class VoteHistory extends React.Component {
                   <div className="which">Against:</div>
                   <div>{ against }</div>
               </div>
+              <div className="linkto">
+                <a href={"https://theyvoteforyou.org.au/policies/" + data.id} title={"See more information on " + data.name}>See more information on this policy at They Vote For You</a>
+              </div>
           </div>
         )
     }
@@ -217,14 +228,22 @@ class VoteHistory extends React.Component {
         const openPolicy = this.state.openPolicy;
         return (
             <div className="pop-content">
-              <div className="vote-history">
+              <div className={"vote-history clearfix " + this.state.isPolicyOpen}>
 
-                { openPolicy }
-
-                <div className="search">
-                  <input onChange={ this.handleSearch.bind(this) } type="search" placeholder="Search voting history..." />
+                <div className="policies">
+                  <div className="intro">Search for policies below. Click/tap a policy to find out more about it. Thanks to <a href="https://theyvoteforyou.org.au/" title="They Vote For You">They Vote For You</a> for the voting data.</div>
+                  <div className="search">
+                    <input onChange={ this.handleSearch.bind(this) } type="search" placeholder="Search voting history..." />
+                  </div>
+                  <div>
+                    { voteHistory }
+                  </div>
                 </div>
-                { voteHistory }
+
+                <div className="policy-comparison">
+                  { openPolicy }
+                </div>
+
               </div>
             </div>
         )

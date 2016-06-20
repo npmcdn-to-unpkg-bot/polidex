@@ -110,6 +110,7 @@ export default class ElectorateMap extends React.Component {
         const searchCondition = new RegExp(this.searchField.value, 'i');
 
         const filtered = this.state.unfilteredList.filter( function(datum) {
+            console.log(datum.properties);
             return (
               datum.properties.ELECT_DIV.search(searchCondition) > -1
             );
@@ -120,20 +121,23 @@ export default class ElectorateMap extends React.Component {
         });
     }
 
-    handleMapClick() {
+    onMouseEnterHandler() {
+
     }
 
-    handleMapZoomChanged() {
-    }
+    onMouseLeaveHandler() {
 
-    handleMarkerClick() {
     }
 
     handlePolygonClick(thing) {
         console.log(thing);
+
+        marker.showInfo = true;
+        this.setState(this.state);
     }
 
     openModal(e) {
+        e.preventDefault();
         var number = e.currentTarget.getAttribute('data-id');
 
         this.setState({
@@ -156,10 +160,6 @@ export default class ElectorateMap extends React.Component {
         const { googleMapsApi, ...otherProps } = props;
         const { features } = state.geoJson;
         const featuresFiltered = state.filteredList;
-        // const { geoStateBy } = state;
-        // const mapFeature = features[0];
-        // const mapGeometry = geometryToComponentWithLatLng(mapFeature.geometry);
-        // const mapState = geoStateBy[0];
 
         return (
             <div className="header-push">
@@ -193,6 +193,9 @@ export default class ElectorateMap extends React.Component {
 
                                   defaultOptions={{
                                     zoomControl: true,
+                                    zoomControlOptions: {
+                                      // position: google.maps.ControlPosition.LEFT_CENTER
+                                    },
                                     mapTypeControl: false,
                                     scaleControl: false,
                                     streetViewControl: false,
@@ -246,7 +249,7 @@ export default class ElectorateMap extends React.Component {
                                         "featureType":"water",
                                         "elementType":"all",
                                         "stylers":[{
-                                          "color":"#BDDAE8"
+                                          "color":"#a3d8ef"
                                           },{"visibility":"on"
                                         }]
                                       }
@@ -259,27 +262,146 @@ export default class ElectorateMap extends React.Component {
                                       }
                                       const { properties } = feature;
                                       const { ElementClass, ChildElementClass, ...geometry } = geometryToComponentWithLatLng(feature.geometry);
+                                      var style = '';
+                                      switch(properties.POLITICIAN_PARTY) {
+                                        case "Liberal Party":
+                                          style = {
+                                            strokeColor: '#0F71EF',
+                                            strokeOpacity: 1,
+                                            strokeWeight: 1.5,
+                                            fillColor: '#0F71EF',
+                                            fillOpacity: 0.75
+                                          };
+                                          break;
+                                        case "Australian Labor Party":
+                                          style = {
+                                            strokeColor: '#DC5C5C',
+                                            strokeOpacity: 1,
+                                            strokeWeight: 1.5,
+                                            fillColor: '#DC5C5C',
+                                            fillOpacity: 0.75
+                                          };
+                                          break;
+                                        case "National Party":
+                                          style = {
+                                            strokeColor: '#70CAA5',
+                                            strokeOpacity: 1,
+                                            strokeWeight: 1.5,
+                                            fillColor: '#70CAA5',
+                                            fillOpacity: 0.75
+                                          };
+                                          break;
+                                        case "Independent":
+                                          style = {
+                                            strokeColor: '#9664BB',
+                                            strokeOpacity: 1,
+                                            strokeWeight: 1.5,
+                                            fillColor: '#9664BB',
+                                            fillOpacity: 0.75
+                                          };
+                                          break;
+                                        case "Australian Greens":
+                                          style = {
+                                            strokeColor: '#89C106',
+                                            strokeOpacity: 1,
+                                            strokeWeight: 1.5,
+                                            fillColor: '#89C106',
+                                            fillOpacity: 0.75
+                                          };
+                                          break;
+                                        case "CWM":
+                                          style = {
+                                            strokeColor: '#222222',
+                                            strokeOpacity: 1,
+                                            strokeWeight: 1.5,
+                                            fillColor: '#222222',
+                                            fillOpacity: 0.75
+                                          };
+                                          break;
+                                        case "Palmer United Party":
+                                          style = {
+                                            strokeColor: '#DAC532',
+                                            strokeOpacity: 1,
+                                            strokeWeight: 1.5,
+                                            fillColor: '#DAC532',
+                                            fillOpacity: 0.75
+                                          };
+                                          break;
+                                        case "Country Liberal Party":
+                                          style = {
+                                            strokeColor: '#34BFAC',
+                                            strokeOpacity: 1,
+                                            strokeWeight: 1.5,
+                                            fillColor: '#34BFAC',
+                                            fillOpacity: 0.75
+                                          };
+                                          break;
+                                        case "Liberal Democratic Party":
+                                          style = {
+                                            strokeColor: '#3ED1E8',
+                                            strokeOpacity: 1,
+                                            strokeWeight: 1.5,
+                                            fillColor: '#3ED1E8',
+                                            fillOpacity: 0.75
+                                          };
+                                          break;
+                                        case "Family First Party":
+                                          style = {
+                                            strokeColor: '#EF950F',
+                                            strokeOpacity: 1,
+                                            strokeWeight: 1.5,
+                                            fillColor: '#EF950F',
+                                            fillOpacity: 0.75
+                                          };
+                                          break;
+                                        case "Liberal National Party":
+                                          style = {
+                                            strokeColor: '#C18686',
+                                            strokeOpacity: 1,
+                                            strokeWeight: 1.5,
+                                            fillColor: '#C18686',
+                                            fillOpacity: 0.75
+                                          };
+                                          break;
+                                        case "Australian Motoring Enthusiast Party":
+                                          style = {
+                                            strokeColor: '#DE68AF',
+                                            strokeOpacity: 1,
+                                            strokeWeight: 1.5,
+                                            fillColor: '#DE68AF',
+                                            fillOpacity: 0.75
+                                          };
+                                          break;
+                                        case "SPK":
+                                          style = {
+                                            strokeColor: '#222222',
+                                            strokeOpacity: 1,
+                                            strokeWeight: 1.5,
+                                            fillColor: '#222222',
+                                            fillOpacity: 0.75
+                                          };
+                                          break;
+                                      }
 
-                                    //   const { visible, child, ...featureState } = geoStateBy[0] || {};
-                                    //   if (visible !== false) {
-                                    //  }
-                                    //
-                                    // {child ?
-                                    //   <ChildElementClass {...child} /> : null}
-                                    array.push(
-                                        <ElementClass
-                                            key={index}
-                                            {...properties}
-                                            {...geometry}
-                                            strokeColor="#EFEFEF"
-                                            strokeOpacity={0.5}
-                                            strokeWeight={0.5}
-                                            fillColor="#FF0000"
-                                            fillOpacity={0.35}
-                                            onClick={() => this.handlePolygonClick(properties)}
-                                        >
-                                        </ElementClass>
-                                    );
+                                      array.push(
+                                          <ElementClass
+                                              key={index}
+                                              {...properties}
+                                              {...geometry}
+                                              options={style}
+                                              onClick={() => this.handlePolygonClick(properties)}
+                                          >
+                                            <InfoWindow
+                                                key={index}
+                                                position={
+                                                  "0",
+                                                  "0"
+                                                }
+                                            >
+                                                Hey
+                                            </InfoWindow>
+                                          </ElementClass>
+                                      );
                                       return array;
                                     }, [], this)}
                                 </GoogleMap>
@@ -301,13 +423,93 @@ export default class ElectorateMap extends React.Component {
                     <div className="current-electorates">
                         <ul>
                             {featuresFiltered.map( function(feature, key) {
-                              return(
-                                <li key={key} data-id={feature.properties.REPRESENTATIVE} onClick={this.openModal.bind(this)}>
-                                    <div className="title">{feature.properties.ELECT_DIV}</div>
-                                    <div className="electorate">{feature.properties.ELECT_DIV}, {feature.properties.STATE}</div>
-                                    <div className="image" style={{ backgroundImage: "url(img/photos/" + feature.properties.REPRESENTATIVE + ".jpg)"}} />
-                                </li>
-                              )
+                              var style = {};
+                              switch(feature.properties.POLITICIAN_PARTY) {
+                                case "Liberal Party":
+                                  style = {
+                                    color: '#0F71EF'
+                                  };
+                                  break;
+                                case "Australian Labor Party":
+                                  style = {
+                                    color: '#DC5C5C'
+                                  };
+                                  break;
+                                case "National Party":
+                                  style = {
+                                    color: '#70CAA5'
+                                  };
+                                  break;
+                                case "Independent":
+                                  style = {
+                                    color: '#9664BB'
+                                  };
+                                  break;
+                                case "Australian Greens":
+                                  style = {
+                                    color: '#89C106'
+                                  };
+                                  break;
+                                case "CWM":
+                                  style = {
+                                    color: '#222222'
+                                  };
+                                  break;
+                                case "Palmer United Party":
+                                  style = {
+                                    color: '#DAC532'
+                                  };
+                                  break;
+                                case "Country Liberal Party":
+                                  style = {
+                                    color: '#34BFAC'
+                                  };
+                                  break;
+                                case "Liberal Democratic Party":
+                                  style = {
+                                    color: '#3ED1E8'
+                                  };
+                                  break;
+                                case "Family First Party":
+                                  style = {
+                                    color: '#EF950F'
+                                  };
+                                  break;
+                                case "Liberal National Party":
+                                  style = {
+                                    color: '#C18686'
+                                  };
+                                  break;
+                                case "Australian Motoring Enthusiast Party":
+                                  style = {
+                                    color: '#DE68AF'
+                                  };
+                                  break;
+                                case "SPK":
+                                  style = {
+                                    color: '#222222'
+                                  };
+                                  break;
+                              }
+                              if (feature.properties.POLITICIAN_ID) {
+                                return(
+                                  <li key={key}>
+                                      <a
+                                        href="#"
+                                        title={feature.properties.ELECT_DIV}
+                                        data-id={feature.properties.POLITICIAN_ID}
+                                        onClick={this.openModal.bind(this)}
+                                        onMouseEnter={this.onMouseEnterHandler.bind(this)}
+                                        onMouseLeave={this.onMouseLeaveHandler.bind(this)}
+                                      >
+                                          <div className="electorate">{feature.properties.ELECT_DIV}, {feature.properties.STATE}</div>
+                                          <div className="title" style={style}>{feature.properties.POLITICIAN_PARTY}</div>
+                                          <div className="name">{feature.properties.POLITICIAN_NAME}</div>
+                                          <div className="image" style={{ backgroundImage: "url(img/photos/" + feature.properties.POLITICIAN_ID + ".jpg)"}} />
+                                      </a>
+                                  </li>
+                                )
+                              }
                             }, this)}
                         </ul>
                     </div>

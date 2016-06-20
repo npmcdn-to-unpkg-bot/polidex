@@ -1,7 +1,7 @@
 // Import React and HelloText class
 import React from 'react';
-import PopupRepresentatives from './mapviews/popup-representatives';
-import PopupSenate from './mapviews/popup-senate';
+import PopupRepresentatives from '../mapviews/popup-representatives';
+import PopupSenate from '../mapviews/popup-senate';
 
 // Create class called WelcomeScreen that extends the base React Component class
 class PopupMap extends React.Component {

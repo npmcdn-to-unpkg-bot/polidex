@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+  <div id="json">
+    Hey
+  </div>
+
+<script src="https://code.jquery.com/jquery-3.0.0.js" integrity="sha256-jrPLZ+8vDxt2FnE1zvZXCkCcebI/C8Dt5xyaQBjxQIo=" crossorigin="anonymous"></script>
+<script>
+var people = '';
+var postcodes = '';
+var electorates = '';
+
+$.when(
+  $.getJSON( "knowledge/people.json", function(data) {
+    people = data;
+    console.log('1');
+  }),
+
+  $.getJSON( "knowledge/postcodes.json", function(data) {
+    postcodes = data;
+    console.log('2');
+  }),
+
+  $.getJSON( "knowledge/electorates.json", function(data) {
+    electorates = data;
+    console.log('3');
+  })
+
+).then(function() {
+  // This adds representative info to the geojson map data
+  for(i = 0; i < people.length; i++) {
+      var theElectorate = people[i].latest_member.electorate;
+      var test = false;
+      if (people[i].latest_member.house == 'representatives') {
+        for(w=0; w < electorates.features.length; w++) {
+            var thisName = electorates.features[w].properties.ELECT_DIV;
+            if ( thisName == theElectorate ) {
+                electorates.features[w].properties.POLITICIAN_ID = people[i].id;
+                electorates.features[w].properties.POLITICIAN_NAME = people[i].latest_member.name.first + ' ' + people[i].latest_member.name.last;
+                electorates.features[w].properties.POLITICIAN_PARTY = people[i].latest_member.party;
+
+                test = true;
+            }
+        }
+        if(test == false) {
+          console.log( theElectorate + ' not found');
+        }
+      }
+  }
+  // Add Postcodes to map data
+  
+  // Print out results
+  $('#json').html( JSON.stringify(electorates) );
+});
+
+</script>
+</body>
+</html>

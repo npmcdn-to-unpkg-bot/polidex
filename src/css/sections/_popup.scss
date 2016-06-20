@@ -14,13 +14,7 @@
 }
 
 /* Loading */
-.loading-popup {
-    background: #eaebec;
-    padding: 80px 0;
-    border-radius: 5px;
-    margin: 0 auto;
-    pointer-events: all;
-
+@mixin loading-spinner {
     .loading {
         margin: 0 auto;
         width: 206px;
@@ -28,30 +22,40 @@
         position: relative;
     }
 
-  p {
-    position: absolute;
-    top: 50%;
-    margin-top: -8px;
-    text-align: center;
-    z-index: 99;
-    color: #000000;
-    font-size: 12px;
-    line-height: 16px;
-    width: 100%;
-    overflow: hidden;
-    animation: dots 2s steps(2) linear infinite;
-    color: gray;
-  }
+    p {
+        position: absolute;
+        top: 50%;
+        margin-top: -8px;
+        text-align: center;
+        z-index: 99;
+        color: #000000;
+        font-size: 12px;
+        line-height: 16px;
+        width: 100%;
+        overflow: hidden;
+        animation: dots 2s steps(2) linear infinite;
+        color: gray;
+    }
 
-  .spin {
-    height: 100%;
-    margin: 10% auto;
-    border-right: 5px solid #0493D8;
-    border-bottom: 5px solid transparent;
-    border-radius: 100%;
-    animation: spin 0.9s linear infinite;
-    opacity: 0.25;
-  }
+    .spin {
+        height: 100%;
+        margin: 10% auto;
+        border-right: 5px solid #0493D8;
+        border-bottom: 5px solid transparent;
+        border-radius: 100%;
+        animation: spin 0.9s linear infinite;
+        opacity: 0.25;
+    }
+}
+
+.loading-popup {
+    background: #eaebec;
+    padding: 80px 0;
+    border-radius: 5px;
+    margin: 0 auto;
+    pointer-events: all;
+
+    @include loading-spinner;
 }
 
 @keyframes spin {
@@ -79,18 +83,16 @@
 .pol-info {
     position: relative;
     padding-left: 288px;
-    height: 384px;
-    height: calc(100vh - 260px);
+    min-height: 384px;
     border-radius: 0 0 5px 5px;
     overflow: hidden;
-    background: #000000;
+    background: #102531;
 }
 
 @media screen and (max-width: 1400px) {
   .pol-info {
       padding-left: 240px;
-      height: 340px;
-      height: calc(100vh - 260px);
+      min-height: 340px;
   }
 }
 
@@ -189,18 +191,35 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  @include padding(20);
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
+  background: linear-gradient(to bottom, rgba(#102531,0) 0%,rgba(#102531,1) 100%);
+  height: 120px;
+}
 
-  .positions {
-    color: #FFFFFF;
-    @include font-size(16);
-    @include line-height(20);
+.politician-popup .pop-image-holder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 288px;
+
+  @media screen and (max-width: 1400px) {
+    width: 240px;
   }
+}
+
+.politician-popup .pop-image-holder .positions {
+  color: #FFFFFF;
+  @include font-size(16);
+  @include line-height(20);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  @include padding(20);
 }
 
 /* Details */
 .pop-content {
+
 }
 
 .pop-content .map-area {
@@ -208,31 +227,77 @@
 }
 
 .vote-history {
-  height: 384px;
-  height: calc(100vh - 100px);
-  overflow-y: scroll;
-  background: #e8ebed;
+    background: #e8ebed;
+    position: relative;
+    transition: 0.5s ease all;
+    overflow: hidden;
 }
 
-@media screen and (max-width: 1400px) {
-    .vote-history {
-        height: 294px;
-        height: calc(100vh - 100px);
-    }
+.vote-history .policies {
+    width: 100%;
+    float: left;
 }
 
-.vote-history::-webkit-scrollbar {
-    width: 10px;
+.vote-history .policy-comparison {
+    background: #FFFFFF;
+    width: 0%;
+    float: right;
+    opacity: 0;
 }
 
-.vote-history::-webkit-scrollbar-track {
-	background: #C4CACE;
+.vote-history .policies,
+.vote-history .policy-comparison {
+    height: 300px;
+    height: calc(100vh - 300px);
+    min-height: 340px;
+    transition: 0.5s all ease;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
-.vote-history::-webkit-scrollbar-thumb {
-	background-color: #386585;
-	border: none;
-  border-radius: 5px;
+.vote-history .policies {
+  &::-webkit-scrollbar {
+      width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+  	background: #C4CACE;
+  }
+
+  &::-webkit-scrollbar-thumb {
+  	background-color: #386585;
+  	border: 2px solid #C4CACE;
+    border-radius: 5px;
+  }
+}
+.vote-history .policy-comparison {
+  &::-webkit-scrollbar {
+      width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+  	background: #e8ebed;
+  }
+
+  &::-webkit-scrollbar-thumb {
+  	background-color: #386585;
+  	border: 2px solid #e8ebed;
+    border-radius: 5px;
+  }
+}
+
+/* Move policy comparison in */
+.vote-history.comparison-active {
+
+}
+
+.vote-history.comparison-active .policies {
+    width: 50%;
+}
+
+.vote-history.comparison-active .policy-comparison {
+    width: 50%;
+    opacity: 1;
 }
 
 .vote-history .put {
@@ -249,6 +314,9 @@
     @include margin(10);
     border-radius: 5px;
     overflow: hidden;
+    font-weight: normal;
+    transition: 0.5s ease all;
+    opacity: 1;
 
     &:before {
       content: '';
@@ -316,6 +384,10 @@
     }
 }
 
+.vote-history .issue:hover {
+    opacity: 0.5;
+}
+
 .vote-history .issue-title {
 }
 
@@ -330,23 +402,75 @@
     display: inline-block;
 }
 
+.vote-history .intro {
+    color: #1f435e;
+    @include margin(20);
+    margin-bottom: -5px;
+    margin-bottom: -0.3125rem;
+}
+
+.vote-history .intro a {
+    line-height: 1.4;
+    color: #0493D8;
+}
+
 .vote-history .search {
-    margin: 10px;
+    @include margin(20);
+    position: relative;
+}
+
+.vote-history .search:before {
+    content: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDIwIDIwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4uc3Qwe2ZpbGw6IzA0OTNEODt9PC9zdHlsZT48cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTkuNiwxNy41TDE2LjEsMTRjMS0xLjUsMS42LTMuMiwxLjYtNS4xYzAtNC45LTQtOC45LTguOS04LjlTMCw0LDAsOC45czQsOC45LDguOSw4LjljMS45LDAsMy43LTAuNiw1LjItMS43bDMuNSwzLjVjMC4zLDAuMywwLjcsMC40LDEsMC40YzAuNCwwLDAuNy0wLjEsMS0wLjRDMjAuMSwxOSwyMC4xLDE4LjEsMTkuNiwxNy41eiBNOC45LDE0LjhjLTMuMywwLTUuOS0yLjctNS45LTUuOXMyLjctNS45LDUuOS01LjlzNS45LDIuNyw1LjksNS45YzAsMS4xLTAuMywyLjEtMC44LDNjLTAuNSwwLjgtMS4yLDEuNi0yLjEsMi4xQzExLDE0LjUsMTAsMTQuOCw4LjksMTQuOHoiLz48L3N2Zz4=);
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 12px;
+    margin-top: -10px;
 }
 
 .vote-history .search input[type="search"] {
     color: #10293b;
     @include font-size(18);
     @include line-height(22);
-    padding: 8px 10px 8px 10px;
+    padding: 10px 12px 10px 40px;
     border: 1px solid #A4B2BC;
     width: 100%;
     border-radius: 5px;
+    transition: 0.5s ease all;
+
+    &::-webkit-input-placeholder {
+        color: #304A5D;
+    }
+
+    &:-moz-placeholder { /* Firefox 18- */
+        color: #304A5D;
+    }
+
+    &::-moz-placeholder {  /* Firefox 19+ */
+        color: #304A5D;
+    }
+
+    &:-ms-input-placeholder {
+        color: #304A5D;
+    }
+}
+
+.vote-history .search input[type="search"]:focus {
+    outline: none;
+    border-color: #0493D8;
+    box-shadow: 0px 0px 5px rgba(#0493D8, 0.25);
+}
+
+.vote-history .votes {
+    @include margin(10);
 }
 
 /* Map */
 .popup-map {
-    height: 294px;
+    height: 300px;
+    height: calc(100vh - 300px);
+    min-height: 340px;
     position: relative;
     background: #e8ebed;
 
@@ -364,7 +488,7 @@
         content: '';
         position: absolute;
         top: 0;
-        right: 0;
+        left: -1px;
         height: 100%;
         width: 100%;
         background: linear-gradient(to right, rgba(232,235,237,1) 0%,rgba(232,235,237,0.5) 100%);
@@ -375,10 +499,12 @@
     background-color: rgba(11, 60, 82, 0.85);
     */
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 50%;
+    left: 50%;
+    margin-top: -152px;
+    margin-left: -147px;
     width: 294px;
-    height: 100%;
+    height: 304px;
   }
 
   svg {
@@ -489,7 +615,7 @@
 /* React Tabs */
 .ReactTabs__TabList[role=tablist] {
     padding: 10px 5px 0 5px;
-    background: #abb6bd;
+    background: none;
     border: none;
     margin: 0;
 }
@@ -512,6 +638,7 @@
 }
 
 .react-tabs [role=tab][aria-selected=true] {
+    font-weight: bold;
     border-radius: 0;
     background: #e8ebed;
     color: #10293b;
@@ -520,19 +647,79 @@
 
 
 /* Voting Comparison */
-.policy-comparison {
-    @include margin(10);
-    background: #FFFFFF;
-    border-radius: 5px;
-    @include padding(10);
-    border: 1px solid #abb6bd;
+.policy-comparison .policy-info {
+    @include padding(20);
 }
 
-.policy-comparison .loading {
+.policy-comparison button {
+    float: right;
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: #e8ebed;
+    border-radius: 50%;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    white-space: nowrap;
+    text-indent: 150%;
+    overflow: hidden;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    pointer-events: all;
+    margin: 0 0 1em 1em;
+}
+
+.policy-comparison button:before {
+    content: '';
+    height: 2px;
+    width: 16px;
+    background: #222;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -1px;
+    margin-left: -8px;
+}
+
+.policy-comparison button:after {
+    content: '';
+    height: 16px;
+    width: 2px;
+    background: #222;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -8px;
+    margin-left: -1px;
+}
+
+.policy-comparison button:hover {
+    background-color: #0493D8;
+}
+
+.policy-comparison button:hover:before,
+.policy-comparison button:hover:after {
+    background-color: #ffffff;
+}
+
+.policy-comparison-loading {
+    padding: 2em 0;
+
+    @include loading-spinner;
+}
+
+.policy-comparison .linkto {
     @include margin(10);
+}
+
+.policy-comparison .linkto a {
+    color: #0493d8;
 }
 
 .policy-comparison .policy-title {
+    font-family: 'Lyon Display';
     font-size: 24px;
     font-weight: bold;
     text-transform: capitalize;
@@ -540,7 +727,15 @@
 }
 
 .policy-comparison .policy-description {
+    @include font-size(16);
+    @include line-height(20);
+    color: #1f435e;
+
     @include margin(10);
+}
+
+.policy-comparison .policy-description:first-letter {
+    text-transform: uppercase;
 }
 
 .policy-comparison .votes {
@@ -548,18 +743,22 @@
 }
 
 .policy-comparison .others {
-    @include margin(10);
+    @include margin(8);
 }
 
 .policy-comparison .others .which {
     font-weight: bold;
     text-transform: uppercase;
+    @include margin(2);
 }
 
 .policy-comparison .others .person {
+    background-color: #10293b;
     background-size: cover;
     background-position: center;
     height: 20px;
     width: 20px;
     float: left;
+    @include margin(2);
+    border-radius: 5px;
 }

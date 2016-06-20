@@ -3,20 +3,20 @@
 }
 
 .map-main {
-    width: 75%;
     background-color: #DCDCDC;
     height: 100vh;
     height: calc(100vh - 50px);
-    float: left;
 }
 
 .map-side {
     width: 25%;
     background-color: #FFFFFF;
-    height: 100vh;
-    height: calc(100vh - 50px);
     overflow-y: scroll;
-    float: left;
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    bottom: 20px;
+    border-radius: 5px;
 }
 
 .map-side::-webkit-scrollbar {
@@ -36,7 +36,7 @@
 /* Search */
 .above-listing {
     padding: 20px;
-    background-color: #000000;
+    background-color: #10293b;
     color: #FFFFFF;
     text-align: center;
 }
@@ -98,14 +98,29 @@
 }
 
 .current-electorates li {
-    padding: 20px 20px 20px 90px;
-    min-height: 100px;
     position: relative;
     background-color: #FFFFFF;
 }
 
 .current-electorates li:nth-child(2n) {
     background-color: #EFEFEF;
+}
+
+.current-electorates li a {
+    display: block;
+    padding: 20px 20px 20px 90px;
+    min-height: 100px;
+    color: #10293b;
+}
+
+.current-electorates li a:hover,
+.current-electorates li a:focus {
+    background: #0493d8;
+    color: #FFFFFF;
+
+    .title, .electorate, .name {
+        color: #FFFFFF !important;
+    }
 }
 
 .current-electorates .image {
@@ -120,6 +135,18 @@
 }
 
 .current-electorates .electorate {
-    font-size: 1.5em;
+    font-size: 1.25em;
     font-weight: bold;
+    font-family: 'Lyon Display';
+    color: #10293b;
+    margin-bottom: 0.1em;
+}
+
+.current-electorates .title {
+    margin-bottom: 0.1em;
+}
+
+.current-electorates .name {
+    color: #597C95;
+    text-transform: uppercase;
 }
