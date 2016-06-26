@@ -191,14 +191,22 @@ class PoliticianPopup extends React.Component {
                   </div>
                   <div className="pol-info clearfix">
                     <div className="pop-image-holder">
-                        <div className="pop-image-bg" style={{backgroundImage: "url(../img/photos/" + this.state.response.id + ".jpg)"}}>
-                        </div>
-                        <div className="bg-overlay"></div>
                         <div className="pop-image" style={{backgroundImage: "url(../img/photos/" + this.state.response.id + ".jpg)"}}>
                             <div className="overlay"></div>
                         </div>
+                        <PopupMap
+                            mapArea={ this.state.response.latest_member.house }
+                            polId={ this.props.politicianId }
+                        />
                         <div className="positions">{ this.state.offices }</div>
                     </div>
+                    <VoteHistory
+                        polId={ this.props.politicianId }
+                        response={ this.state.response }
+                        classType={ this.state.classType }
+                        voteHistory={ this.state.voteHistory }
+                    />
+                    {/*
                     <Tabs
                         onSelect={this.handleSelect}
                         selectedIndex={0}
@@ -208,23 +216,15 @@ class PoliticianPopup extends React.Component {
                             <Tab>What { this.state.response.latest_member.name.first } { this.state.response.latest_member.name.last } Does</Tab>
                         </TabList>
                         <TabPanel>
-                            <VoteHistory
-                                polId={ this.props.politicianId }
-                                response={ this.state.response }
-                                classType={ this.state.classType }
-                                voteHistory={ this.state.voteHistory }
-                            />
+
                         </TabPanel>
                         <TabPanel>
                             <div>
                                 { this.state.response.latest_member.name.first } { this.state.response.latest_member.name.last } is a federal politician who sits in the { this.state.response.latest_member.house }
                             </div>
-                            <PopupMap
-                                mapArea={ this.state.response.latest_member.house }
-                                polId={ this.props.politicianId }
-                            />
                         </TabPanel>
                     </Tabs>
+                    */}
                   </div>
                 </div>
             </div>

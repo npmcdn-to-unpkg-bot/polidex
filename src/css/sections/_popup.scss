@@ -4,13 +4,17 @@
 }
 
 .popup-holder {
-    padding: 110px 25px 62px 25px;
+    padding: 110px 100px 62px 100px;
     margin: 40px 20px 40px 20px;
     display: table-cell;
     vertical-align: middle;
     pointer-events: none;
 
     & > * { pointer-events: all; }
+
+    @media screen and (max-width: 800px) {
+      padding: 110px 50px 62px 50px;
+    }
 }
 
 /* Loading */
@@ -49,9 +53,7 @@
 }
 
 .loading-popup {
-    background: #eaebec;
     padding: 80px 0;
-    border-radius: 5px;
     margin: 0 auto;
     pointer-events: all;
 
@@ -83,29 +85,22 @@
 .pol-info {
     position: relative;
     padding-left: 288px;
-    min-height: 384px;
-    border-radius: 0 0 5px 5px;
-    overflow: hidden;
-    background: #102531;
 }
 
 @media screen and (max-width: 1400px) {
   .pol-info {
-      padding-left: 240px;
       min-height: 340px;
   }
 }
 
 .politician-popup .pol-title {
-   @include padding-all(20,20,20,20);
-   background-color: #FFFFFF;
-   border-radius: 5px 5px 0px 0px;
+   @include padding-all(0,0,20,0);
 }
 
 .politician-popup .name {
   font-family: 'Lyon Display';
-   @include font-size(26);
-   @include line-height(28);
+   @include font-size(32);
+   @include line-height(36);
    font-weight: bold;
    color: #10293b;
 }
@@ -114,12 +109,10 @@
    @include line-height(20);
    color: #597C95;
    text-transform: uppercase;
-   float: left;
 }
 .politician-popup .party {
   float: right;
   @include padding-all(0,10,0,10);
-  background-color: #DEDEDE;
   color: #FFFFFF;
   @include font-size(14);
   @include line-height(28);
@@ -170,29 +163,24 @@
 }
 
 .politician-popup .pop-image {
-    width: 288px;
-    height: 384px;
+    width: 240px;
+    height: 340px;
     background-position: center;
     background-size: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px rgba(16, 41, 59, 0.2), 0px 0px 20px rgba(4, 147, 216, 0.2);
+    margin-bottom: 38px;
 }
 
-@media screen and (max-width: 1400px) {
-    .politician-popup .pop-image {
-        width: 240px;
-        height: 340px;
-    }
+.ReactTabs.react-tabs {
+    box-shadow: 0px 0px 20px rgba(16, 41, 59, 0.2), 0px 0px 20px rgba(4, 147, 216, 0.2);
 }
 
 .politician-popup .pop-image .overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: linear-gradient(to bottom, rgba(#102531,0) 0%,rgba(#102531,1) 100%);
-  height: 120px;
+}
+
+.ReactModal__Overlay.ReactModal__Overlay--after-open {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 0%, rgba(218, 240, 247, 0.9) 100%);
 }
 
 .politician-popup .pop-image-holder {
@@ -205,16 +193,21 @@
   @media screen and (max-width: 1400px) {
     width: 240px;
   }
+  @media screen and (max-width: 800px) {
+    position: relative;
+    margin: 0 auto;
+  }
 }
 
 .politician-popup .pop-image-holder .positions {
-  color: #FFFFFF;
-  @include font-size(16);
-  @include line-height(20);
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  @include padding(20);
+    background-color: rgba(119, 158, 185, 0.5);
+    color: #10293b;
+    @include font-size(16);
+    @include line-height(20);
+    width: 240px;
+    margin-bottom: 38px;
+    padding: 20px;
+    border-radius: 5px;
 }
 
 /* Details */
@@ -227,10 +220,12 @@
 }
 
 .vote-history {
-    background: #e8ebed;
+    background: #FFFFFF;
     position: relative;
     transition: 0.5s ease all;
     overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px rgba(16, 41, 59, 0.2), 0px 0px 20px rgba(4, 147, 216, 0.2);
 }
 
 .vote-history .policies {
@@ -247,12 +242,7 @@
 
 .vote-history .policies,
 .vote-history .policy-comparison {
-    height: 300px;
-    height: calc(100vh - 300px);
-    min-height: 340px;
     transition: 0.5s all ease;
-    overflow-x: hidden;
-    overflow-y: scroll;
 }
 
 .vote-history .policies {
@@ -438,6 +428,7 @@
     width: 100%;
     border-radius: 5px;
     transition: 0.5s ease all;
+    background: #f6f6f7;
 
     &::-webkit-input-placeholder {
         color: #304A5D;
@@ -468,11 +459,12 @@
 
 /* Map */
 .popup-map {
-    height: 300px;
-    height: calc(100vh - 300px);
-    min-height: 340px;
     position: relative;
-    background: #e8ebed;
+    box-shadow: 0px 0px 20px rgba(16, 41, 59, 0.2), 0px 0px 20px rgba(4, 147, 216, 0.2);
+    margin-bottom: 38px;
+    background-color: #0493D8;
+    border-radius: 5px;
+    width: 240px;
 
     .photo {
         position: absolute;
@@ -494,93 +486,39 @@
         background: linear-gradient(to right, rgba(232,235,237,1) 0%,rgba(232,235,237,0.5) 100%);
     }
 
-  .house {
-    /*
-    background-color: rgba(11, 60, 82, 0.85);
-    */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -152px;
-    margin-left: -147px;
-    width: 294px;
-    height: 304px;
-  }
+    .mapsvg {
+        padding: 0 0 10px 0;
+    }
 
-  svg {
-    display: block;
-    width: 288px;
-    height: 224px;
-    margin: 60px auto 20px auto;
-  }
-
-  .house-title {
-    position: absolute;
-    top: 10px;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    color: #10293b;
-    @include font-size(14);
-    @include line-height(20);
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-
-    span {
+    svg {
       display: block;
-      font-family: 'Lyon Display';
-      @include font-size(16);
+      width: 240px;
+      height: 224px;
+      margin: 0 auto 0 auto;
+    }
+
+    .house-title {
+      padding: 10px 0;
+      width: 100%;
+      text-align: center;
+      color: #10293b;
+      @include font-size(14);
       @include line-height(20);
-    }
-  }
-}
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
 
-
-@media screen and (max-width: 920px) {
-    .pol-info {
-        padding: 340px 0 0 0;
-        height: auto;
-    }
-    .pop-image-holder {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 50%;
-        height: 340px;
-        background-color: #FFFFFF;
-    }
-    .pop-image-holder .bg-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0,0,0,0.75);
-    }
-    .pop-image-holder .pop-image-bg {
-        background-size: cover;
-        background-position: center;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        filter: blur(5px);
-    }
-    .politician-popup .pop-image {
-        position: relative;
-        z-index: 2;
-        margin: 0 auto;
+      span {
+        display: block;
+        font-family: 'Lyon Display';
+        @include font-size(16);
+        @include line-height(20);
+        color: #FFFFFF;
+      }
     }
 }
 
-@media screen and (max-width: 600px) {
-    .pop-image-holder {
-        overflow: hidden;
-        position: relative;
-        width: 100%;
-    }
+@media screen and (max-width: 800px) {
   .politician-popup .pol-title {
     text-align: center;
   }
@@ -603,32 +541,27 @@
     padding: 0;
     height: auto;
   }
-  .politician-popup .pop-image {
-    position: relative;
-  }
-  .politician-popup .electorate {
-    float: none;
-  }
 }
 
 
 /* React Tabs */
 .ReactTabs__TabList[role=tablist] {
-    padding: 10px 5px 0 5px;
+    padding: 0;
     background: none;
     border: none;
     margin: 0;
+    display: flex;
 }
 
 .react-tabs [role=tab] {
-    padding: 10px 12px;
+    padding: 20px 12px;
     border-radius: 0;
     border: none;
-    margin: 0 5px;
-    background: #7b8994;
+    background: #436681;
     color: #FFFFFF;
     bottom: 0;
-    border-radius: 5px 5px 0 0;
+    width: 50%;
+    text-align: center;
 }
 
 .react-tabs [role=tab]:hover,
@@ -637,12 +570,16 @@
     color: #FFFFFF;
 }
 
+.react-tabs [role=tab]:focus:after {
+    content: none;
+    box-shadow: none;
+}
+
 .react-tabs [role=tab][aria-selected=true] {
     font-weight: bold;
     border-radius: 0;
-    background: #e8ebed;
+    background: #FFFFFF;
     color: #10293b;
-    border-radius: 5px 5px 0 0;
 }
 
 

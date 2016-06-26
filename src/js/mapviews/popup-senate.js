@@ -18,7 +18,7 @@ class PopupSenate extends React.Component {
         return (
             <div className="mapsvg">
               <svg viewBox="0 0 634 936.5">
-                <style type="text/css" dangerouslySetInnerHTML={{__html: "\n      /* Tables and other non-interactive elements */\n      .bit {\n          fill: rgba(255,255,255,0.2);\n      }\n      /* Seats */\n      .house-seat {\n          fill: rgba(255,255,255,0.4);\n      }\n      .house-seat.activeSeat {\n      }\n      .house-seat.activeSeat:hover {\n      }\n\n      .house-seat.selected {\n        fill: #0493D8;\n      }\n    " }} />
+                <style type="text/css" dangerouslySetInnerHTML={{__html: "\n      /* Tables and other non-interactive elements */\n      .bit {\n          fill: rgba(16, 41, 59,0.5);\n      }\n      /* Seats */\n      .house-seat {\n          fill: #10293b;\n      }\n      .house-seat.activeSeat {\n      }\n      .house-seat.activeSeat:hover {\n      }\n\n      .house-seat.selected {\n        fill: #FFFFFF;\n      }\n    " }} />
 
                 {/* Decorative elements */}
                 <path className="bit" d="M213.4,707.3L197.1,719c5.8,8,12.9,15,21,20.8l11.6-16.3C223.5,719,217.9,713.6,213.4,707.3z" />

@@ -18,7 +18,7 @@ class PopupRepresentatives extends React.Component {
         return (
             <div className="mapsvg">
               <svg viewBox="0 0 620 745.8">
-                <style type="text/css" dangerouslySetInnerHTML={{__html: "\n\t.bit{fill:rgba(16, 41, 59,0.5);}.house-seat{fill:rgba(16, 41, 59, 1);}.house-seat.selected{fill:#0493D8;}\n" }} />
+                <style type="text/css" dangerouslySetInnerHTML={{__html: "\n\t.bit{fill:rgba(16, 41, 59,0.5);}.house-seat{fill:rgba(16, 41, 59, 1);}.house-seat.selected{fill:#FFFFFF;}\n" }} />
 
                 {/* Top Right */}
                 <rect data-id="test" x={451} y="9.8" className="bit" width={39} height={61} />

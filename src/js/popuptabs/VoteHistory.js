@@ -14,7 +14,7 @@ class VoteHistory extends React.Component {
             voteHistory: '',
             voteHistoryFiltered: '',
             classType: '',
-
+            
             openPolicy: '',
             isPolicyOpen: ''
         };
@@ -93,7 +93,7 @@ class VoteHistory extends React.Component {
             );
         }
         return (
-          <div className="votes">
+          <div>
             { voteHistory }
           </div>
         )
@@ -200,8 +200,6 @@ class VoteHistory extends React.Component {
             <button className="close-policy" onClick={this.closePolicy.bind(this)}>Close</button>
               <div className="policy-title">{ data.name }</div>
               <div className="policy-description">{ data.description }</div>
-              <div clasName="votes">
-              </div>
               <div className="others for clearfix">
                   <div className="which">For:</div>
                   <div>{ pro }</div>
@@ -235,7 +233,7 @@ class VoteHistory extends React.Component {
                   <div className="search">
                     <input onChange={ this.handleSearch.bind(this) } type="search" placeholder="Search voting history..." />
                   </div>
-                  <div>
+                  <div className="votes">
                     { voteHistory }
                   </div>
                 </div>
