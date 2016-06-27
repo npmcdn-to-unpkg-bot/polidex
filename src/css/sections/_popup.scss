@@ -454,7 +454,7 @@
 }
 
 .vote-history .votes {
-    @include margin(10);
+    @include margin-all(10,10,20,10);
 }
 
 /* Map */

@@ -14,7 +14,7 @@ class VoteHistory extends React.Component {
             voteHistory: '',
             voteHistoryFiltered: '',
             classType: '',
-            
+
             openPolicy: '',
             isPolicyOpen: ''
         };
@@ -80,17 +80,38 @@ class VoteHistory extends React.Component {
             } else {
             }
 
-            voteHistory.push(
-              <a onClick={this.clickIssue.bind(this)} data-id={data[b].policy.id} className={"issue clearfix " + moreThan} key={i} href="#">
-                  <div className="issue-title">
-                      <svg>
-                        <use href={"img/sprite.svg#thumb-" + thumb} />
-                      </svg>
-                      { yaynay }
-                      { data[b].policy.name }
-                  </div>
-              </a>
-            );
+            console.log(this.state);
+
+            if( data[b].policy.id ) {
+              voteHistory.push(
+                <div key={i}>
+                  <a onClick={this.clickIssue.bind(this)} data-id={data[b].policy.id} className={"issue clearfix " + moreThan} href="#">
+                      <div className="issue-title">
+                          <svg>
+                            <use href={"img/sprite.svg#thumb-" + thumb} />
+                          </svg>
+                          { yaynay }
+                          { data[b].policy.name }
+                      </div>
+                  </a>
+                </div>
+              );
+            } else {
+              voteHistory.push(
+                <div key={i}>
+                  <a onClick={this.clickIssue.bind(this)} data-id={data[b].policy.id} className={"issue clearfix " + moreThan} href="#">
+                      <div className="issue-title">
+                          <svg>
+                            <use href={"img/sprite.svg#thumb-" + thumb} />
+                          </svg>
+                          { yaynay }
+                          { data[b].policy.name }
+                      </div>
+                  </a>
+                </div>
+              );
+            }
+
         }
         return (
           <div>
@@ -127,14 +148,16 @@ class VoteHistory extends React.Component {
 
     clickIssue(e) {
         var self = this;
+        var event = e;
         self.scrollToTop();
         var loading = [ <div className="policy-comparison-loading"><div className="loading"><div className="spin"></div></div></div> ];
         self.setState({
             openPolicy: loading,
             isPolicyOpen: 'comparison-active'
         });
+
         var policyID = e.currentTarget.getAttribute('data-id');
-        // https://theyvoteforyou.org.au/api/v1/policies/[id].json?key=[api_key]
+
         $.ajax({
             type: 'GET',
             url: '../../proxy/crossproxy-policies.php',
@@ -226,23 +249,23 @@ class VoteHistory extends React.Component {
         const openPolicy = this.state.openPolicy;
         return (
             <div className="pop-content">
-              <div className={"vote-history clearfix " + this.state.isPolicyOpen}>
+                <div className={"vote-history clearfix " + this.state.isPolicyOpen}>
 
-                <div className="policies">
-                  <div className="intro">Search for policies below. Click/tap a policy to find out more about it. Thanks to <a href="https://theyvoteforyou.org.au/" title="They Vote For You">They Vote For You</a> for the voting data.</div>
-                  <div className="search">
-                    <input onChange={ this.handleSearch.bind(this) } type="search" placeholder="Search voting history..." />
-                  </div>
-                  <div className="votes">
-                    { voteHistory }
-                  </div>
+                    <div className="policies">
+                        <div className="intro">Search for policies below. Click/tap a policy to find out more about it. Thanks to <a href="https://theyvoteforyou.org.au/" title="They Vote For You">They Vote For You</a> for the voting data.</div>
+                        <div className="search">
+                            <input onChange={ this.handleSearch.bind(this) } type="search" placeholder="Search voting history..." />
+                        </div>
+                        <div className="votes">
+                            { voteHistory }
+                        </div>
+                    </div>
+
+                    <div className="policy-comparison">
+                        { openPolicy }
+                    </div>
+
                 </div>
-
-                <div className="policy-comparison">
-                  { openPolicy }
-                </div>
-
-              </div>
             </div>
         )
     }
