@@ -103,7 +103,9 @@ export default class ElectorateMap extends React.Component {
       modalIsOpen: false,
       geoJson: mygeojson,
       unfilteredList: mygeojson.features,
-      filteredList: mygeojson.features
+      filteredList: mygeojson.features,
+
+      hoverTest: ''
     }
 
     handleSearch(e) {
@@ -121,19 +123,35 @@ export default class ElectorateMap extends React.Component {
         });
     }
 
-    onMouseEnterHandler() {
+    // Sidebar hover events
+    onMouseOver() {
+        
+    }
 
+    // Map electorates hover events
+    onMouseEnterHandler(hovered) {
+        console.log(hovered);
+
+        this.setState({
+            hoverTest: hovered.POLITICIAN_NAME
+        });
     }
 
     onMouseLeaveHandler() {
-
+        this.setState({
+            hoverTest: ''
+        });
     }
 
     handlePolygonClick(thing) {
         console.log(thing);
 
-        marker.showInfo = true;
-        this.setState(this.state);
+        // For now, open popup
+        var number = thing.POLITICIAN_ID;
+        this.setState({
+            currentModal: number,
+            modalIsOpen: true
+        });
     }
 
     openModal(e) {
@@ -160,6 +178,8 @@ export default class ElectorateMap extends React.Component {
         const { googleMapsApi, ...otherProps } = props;
         const { features } = state.geoJson;
         const featuresFiltered = state.filteredList;
+
+        const hoverTest = state.hoverTest;
 
         return (
             <div className="header-push">
@@ -390,6 +410,8 @@ export default class ElectorateMap extends React.Component {
                                               {...geometry}
                                               options={style}
                                               onClick={() => this.handlePolygonClick(properties)}
+                                              onMouseover={() => this.onMouseEnterHandler(properties)}
+                                              onMouseout={() => this.onMouseLeaveHandler(properties)}
                                           >
                                             <InfoWindow
                                                 key={index}
@@ -499,8 +521,6 @@ export default class ElectorateMap extends React.Component {
                                         title={feature.properties.ELECT_DIV}
                                         data-id={feature.properties.POLITICIAN_ID}
                                         onClick={this.openModal.bind(this)}
-                                        onMouseEnter={this.onMouseEnterHandler.bind(this)}
-                                        onMouseLeave={this.onMouseLeaveHandler.bind(this)}
                                       >
                                           <div className="electorate">{feature.properties.ELECT_DIV}, {feature.properties.STATE}</div>
                                           <div className="title" style={style}>{feature.properties.POLITICIAN_PARTY}</div>
@@ -514,6 +534,8 @@ export default class ElectorateMap extends React.Component {
                         </ul>
                     </div>
                 </div>
+
+                <div className="demo-hover">{ hoverTest }</div>
 
                 <Modal
                     isOpen={ this.state.modalIsOpen }

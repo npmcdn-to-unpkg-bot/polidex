@@ -80,8 +80,6 @@ class VoteHistory extends React.Component {
             } else {
             }
 
-            console.log(this.state);
-
             if( data[b].policy.id ) {
               voteHistory.push(
                 <div key={i}>
@@ -142,15 +140,11 @@ class VoteHistory extends React.Component {
         });
     }
 
-    scrollToTop() {
-        $('.vote-history').animate({scrollTop:0}, '500', 'swing');
-    }
-
     clickIssue(e) {
         var self = this;
-        var event = e;
-        self.scrollToTop();
+
         var loading = [ <div className="policy-comparison-loading"><div className="loading"><div className="spin"></div></div></div> ];
+        
         self.setState({
             openPolicy: loading,
             isPolicyOpen: 'comparison-active'

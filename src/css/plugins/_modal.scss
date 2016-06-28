@@ -53,3 +53,8 @@
     margin-top: -8px;
     margin-left: -1px;
 }
+
+.ReactModal__Content button.close:hover:before,
+.ReactModal__Content button.close:hover:after {
+    background-color: #FFFFFF;
+}
