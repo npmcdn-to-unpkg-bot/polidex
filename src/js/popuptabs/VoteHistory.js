@@ -24,8 +24,8 @@ class VoteHistory extends React.Component {
         // Get vote history
         var voteHistory = '';
         voteHistory = this.createVoteHistory(
-          this.props.response.policy_comparisons,
-          this.props.response.id
+            this.props.response.policy_comparisons,
+            this.props.response.id
         );
 
         this.setState({
@@ -35,94 +35,62 @@ class VoteHistory extends React.Component {
     }
 
     createVoteHistory(data, memId) {
-        // How many votes to display
-        var value = data.length;
+        var self = this;
+        var voteHistory = Object.keys(data).map( function(key) {
+            var yaynay, believe, moreThan, thumb;
 
-        var voteHistory = [];
-        for (var i = 0; i < value; i++) {
-            // Get a random issue
-            var numberCrazy = Math.floor((Math.random() * 30) + 1);
-            var b = i;
-
-            var deg = 360 * data[b].agreement / 100;
-
-            var yaynay;
-            var believe;
-            var moreThan = '';
-            var thumb = '';
-
-            if(data[b].agreement >= 50) {
+            if(data[key].agreement >= 50) {
                 thumb = 'up';
             } else {
                 thumb = 'down';
             }
 
-            if(data[b].agreement >= 80) {
-              yaynay = "Strongly in favour of ";
-              believe = "believe";
-              moreThan = "strongfor";
-            } else if (data[b].agreement >= 60 && data[b].agreement < 80) {
-              yaynay = "In favour of ";
-              believe = "believe";
-              moreThan = "for";
-            } else if (data[b].agreement >= 40 && data[b].agreement < 60) {
-              yaynay = "Neutral on ";
-              believe = "neutral";
-              moreThan = "neutral";
-            } else if (data[b].agreement >= 20 && data[b].agreement < 40) {
-              yaynay = "Against ";
-              believe = "do not believe";
-              moreThan = "against";
-            } else if (data[b].agreement >= 0 && data[b].agreement < 20) {
-              yaynay = "Strongly against ";
-              believe = "do not believe";
-              moreThan = "strongagainst";
-            } else {
+            if(data[key].agreement >= 80) {
+                yaynay = "Strongly in favour of ";
+                believe = "believe";
+                moreThan = "strongfor";
+            } else if (data[key].agreement >= 60 && data[key].agreement < 80) {
+                yaynay = "In favour of ";
+                believe = "believe";
+                moreThan = "for";
+            } else if (data[key].agreement >= 40 && data[key].agreement < 60) {
+                yaynay = "Neutral on ";
+                believe = "neutral";
+                moreThan = "neutral";
+            } else if (data[key].agreement >= 20 && data[key].agreement < 40) {
+                yaynay = "Against ";
+                believe = "do not believe";
+                moreThan = "against";
+            } else if (data[key].agreement >= 0 && data[key].agreement < 20) {
+                yaynay = "Strongly against ";
+                believe = "do not believe";
+                moreThan = "strongagainst";
             }
 
-            if( data[b].policy.id ) {
-              voteHistory.push(
-                <div key={i}>
-                  <a onClick={this.clickIssue.bind(this)} data-id={data[b].policy.id} className={"issue clearfix " + moreThan} href="#">
-                      <div className="issue-title">
-                          <svg>
-                            <use href={"img/sprite.svg#thumb-" + thumb} />
-                          </svg>
-                          { yaynay }
-                          { data[b].policy.name }
-                      </div>
-                  </a>
+            return (
+                <div key={key}>
+                    <a onClick={self.clickIssue.bind(self)} data-id={data[key].policy.id} className={"issue clearfix " + moreThan} href="#">
+                        <div className="issue-title">
+                            <svg>
+                                <use href={"img/sprite.svg#thumb-" + thumb} />
+                            </svg>
+                            { yaynay }
+                            { data[key].policy.name }
+                        </div>
+                    </a>
+                    <div id={"policy-" + data[key].policy.id}></div>
                 </div>
-              );
-            } else {
-              voteHistory.push(
-                <div key={i}>
-                  <a onClick={this.clickIssue.bind(this)} data-id={data[b].policy.id} className={"issue clearfix " + moreThan} href="#">
-                      <div className="issue-title">
-                          <svg>
-                            <use href={"img/sprite.svg#thumb-" + thumb} />
-                          </svg>
-                          { yaynay }
-                          { data[b].policy.name }
-                      </div>
-                  </a>
-                </div>
-              );
-            }
+            );
+        });
 
-        }
-        return (
-          <div>
-            { voteHistory }
-          </div>
-        )
+        return ( voteHistory );
     }
 
     handleSearch(e) {
         const searchCondition = new RegExp(e.target.value, 'i');
-        var filtered = this.state.voteHistory.props.children.filter( function(datum) {
+        var filtered = this.state.voteHistory.filter( function(datum) {
             return (
-              datum.props.children.props.children[2].search(searchCondition) > -1
+                datum.props.children.props.children.props.children[2].search(searchCondition) > -1
             );
         });
         if ( filtered.length < 1 ) {
@@ -143,8 +111,14 @@ class VoteHistory extends React.Component {
     clickIssue(e) {
         var self = this;
 
-        var loading = [ <div className="policy-comparison-loading"><div className="loading"><div className="spin"></div></div></div> ];
-        
+        var loading = [
+            <div className="policy-comparison-loading">
+                <div className="loading">
+                    <div className="spin"></div>
+                </div>
+            </div>
+        ];
+
         self.setState({
             openPolicy: loading,
             isPolicyOpen: 'comparison-active'
@@ -161,6 +135,9 @@ class VoteHistory extends React.Component {
             dataType: 'json',
             success: function(data){
                 var openPolicy = self.createPolicy(data);
+
+                // var thing = document.getElementById('policy-' + policyID);
+                // thing.innerHTML = "Paragraph changed!";
 
                 self.setState({
                     openPolicy: openPolicy
