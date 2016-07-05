@@ -125,7 +125,7 @@ export default class ElectorateMap extends React.Component {
 
     // Sidebar hover events
     onMouseOver() {
-        
+
     }
 
     // Map electorates hover events
@@ -171,6 +171,28 @@ export default class ElectorateMap extends React.Component {
         this.setState({
             modalIsOpen: false
         });
+    }
+
+    //Toggle to 'true' to show InfoWindow and re-renders component
+    handleMarkerClick(marker) {
+      marker.showInfo = true;
+      this.setState(this.state);
+    }
+
+    handleMarkerClose(marker) {
+      marker.showInfo = false;
+      this.setState(this.state);
+    }
+
+    renderInfoWindow(ref, marker) {
+        return (
+          //You can nest components inside of InfoWindow!
+          <InfoWindow
+            key={`${ref}_info_window`}
+            onCloseclick={this.handleMarkerClose.bind(this, marker)} >
+            <div>Hello</div>
+          </InfoWindow>
+        );
     }
 
     render() {
@@ -282,6 +304,7 @@ export default class ElectorateMap extends React.Component {
                                       }
                                       const { properties } = feature;
                                       const { ElementClass, ChildElementClass, ...geometry } = geometryToComponentWithLatLng(feature.geometry);
+                                      const ref = `marker_${index}`;
                                       var style = '';
                                       switch(properties.POLITICIAN_PARTY) {
                                         case "Liberal Party":
@@ -331,10 +354,10 @@ export default class ElectorateMap extends React.Component {
                                           break;
                                         case "CWM":
                                           style = {
-                                            strokeColor: '#222222',
+                                            strokeColor: '#4bbfc9',
                                             strokeOpacity: 1,
                                             strokeWeight: 1.5,
-                                            fillColor: '#222222',
+                                            fillColor: '#4bbfc9',
                                             fillOpacity: 0.75
                                           };
                                           break;
@@ -410,18 +433,11 @@ export default class ElectorateMap extends React.Component {
                                               {...geometry}
                                               options={style}
                                               onClick={() => this.handlePolygonClick(properties)}
+                                              // onClick={this.handleMarkerClick.bind(this, feature)}
                                               onMouseover={() => this.onMouseEnterHandler(properties)}
                                               onMouseout={() => this.onMouseLeaveHandler(properties)}
                                           >
-                                            <InfoWindow
-                                                key={index}
-                                                position={
-                                                  "0",
-                                                  "0"
-                                                }
-                                            >
-                                                Hey
-                                            </InfoWindow>
+                                            {feature.showInfo ? this.renderInfoWindow(ref, feature) : null}
                                           </ElementClass>
                                       );
                                       return array;
@@ -436,7 +452,7 @@ export default class ElectorateMap extends React.Component {
                         <div className="map-search">
                             <input
                               type="text"
-                              placeholder="Search by postcode..."
+                              placeholder="Search by electorate..."
                               onChange={ this.handleSearch.bind(this) }
                               ref={(ref) => this.searchField = ref}
                             />
@@ -474,7 +490,7 @@ export default class ElectorateMap extends React.Component {
                                   break;
                                 case "CWM":
                                   style = {
-                                    color: '#222222'
+                                    color: '#4bbfc9'
                                   };
                                   break;
                                 case "Palmer United Party":

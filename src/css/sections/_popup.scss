@@ -229,14 +229,10 @@
 }
 
 .vote-history .policies {
-    width: 100%;
-    float: left;
 }
 
 .vote-history .policy-comparison {
     background: #FFFFFF;
-    width: 0%;
-    float: right;
     opacity: 0;
 }
 
@@ -282,11 +278,14 @@
 }
 
 .vote-history.comparison-active .policies {
-    width: 50%;
+    position: relative;
+    transition: 0.5s all ease;
+    max-height: 0;
+    opacity: 0;
+    display: none;
 }
 
 .vote-history.comparison-active .policy-comparison {
-    width: 50%;
     opacity: 1;
 }
 
@@ -595,9 +594,6 @@
     border: none;
     background: #e8ebed;
     border-radius: 50%;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
     white-space: nowrap;
     text-indent: 150%;
     overflow: hidden;
@@ -606,30 +602,21 @@
     outline: none;
     pointer-events: all;
     margin: 0 0 1em 1em;
+    position: relative;
 }
 
 .policy-comparison button:before {
     content: '';
-    height: 2px;
-    width: 16px;
-    background: #222;
+    height: 8px;
+    width: 8px;
+    border-left: 2px solid #222;
+    border-bottom: 2px solid #222;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -1px;
-    margin-left: -8px;
-}
-
-.policy-comparison button:after {
-    content: '';
-    height: 16px;
-    width: 2px;
-    background: #222;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -8px;
-    margin-left: -1px;
+    margin-top: -4px;
+    margin-left: -2px;
+    transform: rotate(45deg);
 }
 
 .policy-comparison button:hover {
@@ -638,11 +625,12 @@
 
 .policy-comparison button:hover:before,
 .policy-comparison button:hover:after {
-    background-color: #ffffff;
+    border-left: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
 }
 
 .policy-comparison-loading {
-    padding: 2em 0;
+    padding: 3em 0;
 
     @include loading-spinner;
 }
@@ -693,8 +681,8 @@
     background-color: #10293b;
     background-size: cover;
     background-position: center;
-    height: 20px;
-    width: 20px;
+    height: 36px;
+    width: 30px;
     float: left;
     @include margin(2);
     border-radius: 5px;

@@ -109,6 +109,7 @@ class VoteHistory extends React.Component {
     }
 
     clickIssue(e) {
+        e.preventDefault();
         var self = this;
 
         var loading = [
@@ -144,8 +145,8 @@ class VoteHistory extends React.Component {
                 });
             },
             error: function(xhr, status, error) {
-              var err = eval("(" + xhr.responseText + ")");
-              console.log(err.Message);
+                var err = eval("(" + xhr.responseText + ")");
+                console.log(err.Message);
             }
         });
     }

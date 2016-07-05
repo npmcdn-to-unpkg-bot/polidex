@@ -42,6 +42,7 @@ export default class OffCanvas extends React.Component {
     }
 
     openModal(e) {
+        e.preventDefault();
         var content = e.target.innerHTML;
         this.setState({
             currentContent: content,
