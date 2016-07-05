@@ -4,8 +4,8 @@ var path = require('path');
 module.exports = {
     entry: getEntrySources(['./src/js/entry.js']),
     output: {
-        publicPath: 'http://localhost:8080/',
-        // publicPath: '',
+        // publicPath: 'http://localhost:8080/',
+        publicPath: '',
         filename: 'build/bundle.js'
     },
     devtool: 'eval',
